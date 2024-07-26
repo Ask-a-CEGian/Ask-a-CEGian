@@ -853,7 +853,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  context.pushNamed('SignUp');
+                                                  context.pushNamed(
+                                                      'SelectionPage');
                                                 },
                                                 child: RichText(
                                                   textScaler:

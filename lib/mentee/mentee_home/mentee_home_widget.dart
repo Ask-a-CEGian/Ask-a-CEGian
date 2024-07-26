@@ -4,7 +4,7 @@ import '/empty_list_widgets/no_mentors_found/no_mentors_found_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/mentee/connected_mentor_card/connected_mentor_card_widget.dart';
 import '/mentee/mentee_settings/mentee_settings_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -96,7 +96,7 @@ class _MenteeHomeWidgetState extends State<MenteeHomeWidget> {
                                             ),
                                             decoration: const BoxDecoration(),
                                             child: Text(
-                                              'Connected Mentors in this week',
+                                              'Connected Mentors',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
@@ -213,12 +213,12 @@ class _MenteeHomeWidgetState extends State<MenteeHomeWidget> {
                                   decoration: const BoxDecoration(
                                     color: Colors.transparent,
                                   ),
-                                  child: StreamBuilder<List<UsersRecord>>(
-                                    stream: queryUsersRecord(
-                                      queryBuilder: (usersRecord) =>
-                                          usersRecord.where(
-                                        'role',
-                                        isEqualTo: 'Mentor',
+                                  child: StreamBuilder<List<MentorshipsRecord>>(
+                                    stream: queryMentorshipsRecord(
+                                      queryBuilder: (mentorshipsRecord) =>
+                                          mentorshipsRecord.where(
+                                        'mentee_ref',
+                                        isEqualTo: currentUserReference,
                                       ),
                                     ),
                                     builder: (context, snapshot) {
@@ -238,10 +238,11 @@ class _MenteeHomeWidgetState extends State<MenteeHomeWidget> {
                                           ),
                                         );
                                       }
-                                      List<UsersRecord>
-                                          listViewUsersRecordList =
+                                      List<MentorshipsRecord>
+                                          listViewMentorshipsRecordList =
                                           snapshot.data!;
-                                      if (listViewUsersRecordList.isEmpty) {
+                                      if (listViewMentorshipsRecordList
+                                          .isEmpty) {
                                         return const NoMentorsFoundWidget();
                                       }
 
@@ -253,261 +254,19 @@ class _MenteeHomeWidgetState extends State<MenteeHomeWidget> {
                                           0,
                                         ),
                                         scrollDirection: Axis.horizontal,
-                                        itemCount:
-                                            listViewUsersRecordList.length,
+                                        itemCount: listViewMentorshipsRecordList
+                                            .length,
                                         separatorBuilder: (_, __) =>
                                             const SizedBox(width: 20.0),
                                         itemBuilder: (context, listViewIndex) {
-                                          final listViewUsersRecord =
-                                              listViewUsersRecordList[
+                                          final listViewMentorshipsRecord =
+                                              listViewMentorshipsRecordList[
                                                   listViewIndex];
-                                          return Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Container(
-                                              width: 175.0,
-                                              constraints: const BoxConstraints(
-                                                maxWidth: 500.0,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                    color: Color(0x34090F13),
-                                                    offset: Offset(
-                                                      0.0,
-                                                      0.0,
-                                                    ),
-                                                  )
-                                                ],
-                                                gradient: const LinearGradient(
-                                                  colors: [
-                                                    Color(0xFF3C769D),
-                                                    Color(0xFF999992)
-                                                  ],
-                                                  stops: [0.0, 1.0],
-                                                  begin: AlignmentDirectional(
-                                                      -1.0, -0.87),
-                                                  end: AlignmentDirectional(
-                                                      1.0, 0.87),
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(0.0),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Stack(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    0.0, -1.0),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          140.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Container(
-                                                                constraints:
-                                                                    const BoxConstraints(
-                                                                  maxWidth:
-                                                                      500.0,
-                                                                ),
-                                                                decoration:
-                                                                    const BoxDecoration(),
-                                                                child:
-                                                                    FFButtonWidget(
-                                                                  onPressed:
-                                                                      () async {
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'MentorProfileView',
-                                                                      queryParameters:
-                                                                          {
-                                                                        'mentorDoc':
-                                                                            serializeParam(
-                                                                          listViewUsersRecord,
-                                                                          ParamType
-                                                                              .Document,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                      extra: <String,
-                                                                          dynamic>{
-                                                                        'mentorDoc':
-                                                                            listViewUsersRecord,
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                  text:
-                                                                      'VISIT PROFILE',
-                                                                  options:
-                                                                      FFButtonOptions(
-                                                                    height:
-                                                                        40.0,
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            24.0,
-                                                                            0.0,
-                                                                            24.0,
-                                                                            0.0),
-                                                                    iconPadding:
-                                                                        const EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    color: const Color(
-                                                                        0xFFE6E6E6),
-                                                                    textStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelSmall
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).labelSmallFamily,
-                                                                          color:
-                                                                              const Color(0xFFFF0000),
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelSmallFamily),
-                                                                        ),
-                                                                    elevation:
-                                                                        3.0,
-                                                                    borderSide:
-                                                                        const BorderSide(
-                                                                      color: Colors
-                                                                          .transparent,
-                                                                      width:
-                                                                          1.0,
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    0.0, -1.0),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          100.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Container(
-                                                                constraints:
-                                                                    const BoxConstraints(
-                                                                  maxWidth:
-                                                                      500.0,
-                                                                ),
-                                                                decoration:
-                                                                    const BoxDecoration(),
-                                                                child: Text(
-                                                                  listViewUsersRecord
-                                                                      .displayName,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                        color: Colors
-                                                                            .black,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    0.0, -1.0),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          25.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Container(
-                                                                constraints:
-                                                                    const BoxConstraints(
-                                                                  maxWidth:
-                                                                      500.0,
-                                                                ),
-                                                                decoration:
-                                                                    const BoxDecoration(),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              50.0),
-                                                                  child: Image
-                                                                      .network(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      listViewUsersRecord
-                                                                          .photoUrl,
-                                                                      'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/ask-a-cegian-6q7f9f/assets/58j77idojgtm/Group_(1).png',
-                                                                    ),
-                                                                    width: 60.0,
-                                                                    height:
-                                                                        60.0,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                          return ConnectedMentorCardWidget(
+                                            key: Key(
+                                                'Key98u_${listViewIndex}_of_${listViewMentorshipsRecordList.length}'),
+                                            mentorRef: listViewMentorshipsRecord
+                                                .mentorRef!,
                                           );
                                         },
                                       );
