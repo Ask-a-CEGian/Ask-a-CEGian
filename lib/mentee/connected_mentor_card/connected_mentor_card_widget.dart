@@ -126,18 +126,33 @@ class _ConnectedMentorCardWidgetState extends State<ConnectedMentorCardWidget> {
                             0.0, 20.0, 0.0, 20.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.pushNamed(
-                              'MentorProfileView',
-                              queryParameters: {
-                                'mentorDoc': serializeParam(
-                                  prevConUsersRecord,
-                                  ParamType.Document,
-                                ),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                'mentorDoc': prevConUsersRecord,
-                              },
-                            );
+                            if (prevConUsersRecord.role == 'Mentor') {
+                              context.pushNamed(
+                                'MentorProfileView',
+                                queryParameters: {
+                                  'mentorDoc': serializeParam(
+                                    prevConUsersRecord,
+                                    ParamType.Document,
+                                  ),
+                                }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  'mentorDoc': prevConUsersRecord,
+                                },
+                              );
+                            } else {
+                              context.pushNamed(
+                                'MenteeProfileView',
+                                queryParameters: {
+                                  'menteeDoc': serializeParam(
+                                    prevConUsersRecord,
+                                    ParamType.Document,
+                                  ),
+                                }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  'menteeDoc': prevConUsersRecord,
+                                },
+                              );
+                            }
                           },
                           text: 'Visit Profile',
                           options: FFButtonOptions(
