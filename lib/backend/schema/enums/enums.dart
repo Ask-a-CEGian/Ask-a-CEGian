@@ -4,6 +4,7 @@ enum RequestState {
   ACCEPTED,
   REJECTED,
   PENDING,
+  FINALIZED,
 }
 
 extension FFEnumExtensions<T extends Enum> on T {

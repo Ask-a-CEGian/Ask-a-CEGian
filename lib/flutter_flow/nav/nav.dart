@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 
 import '/auth/base_auth_user_provider.dart';
@@ -105,19 +106,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const Splash4Widget(),
         ),
         FFRoute(
-          name: 'LandingPage',
-          path: '/landingPage',
-          builder: (context, params) => const LandingPageWidget(),
-        ),
-        FFRoute(
           name: 'AskingPage',
           path: '/askingPage',
           builder: (context, params) => const AskingPageWidget(),
         ),
         FFRoute(
-          name: 'SignUp1',
-          path: '/signUp1',
-          builder: (context, params) => SignUp1Widget(
+          name: 'SignUp',
+          path: '/signUp',
+          builder: (context, params) => SignUpWidget(
             isMentor: params.getParam(
               'isMentor',
               ParamType.bool,
@@ -125,9 +121,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           ),
         ),
         FFRoute(
-          name: 'SignUp5',
-          path: '/signUp5',
-          builder: (context, params) => const SignUp5Widget(),
+          name: 'SignUpSuccess',
+          path: '/signUpSuccess',
+          builder: (context, params) => const SignUpSuccessWidget(),
         ),
         FFRoute(
           name: 'splash5',
@@ -135,14 +131,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const Splash5Widget(),
         ),
         FFRoute(
-          name: 'splash6',
-          path: '/splash6',
-          builder: (context, params) => const Splash6Widget(),
-        ),
-        FFRoute(
-          name: 'login1',
-          path: '/login1',
-          builder: (context, params) => Login1Widget(
+          name: 'login',
+          path: '/login',
+          builder: (context, params) => LoginWidget(
             signUp: params.getParam(
               'signUp',
               ParamType.bool,
@@ -160,29 +151,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           ),
         ),
         FFRoute(
-          name: 'Selection',
-          path: '/selection',
-          builder: (context, params) => const SelectionWidget(),
-        ),
-        FFRoute(
           name: 'MenteeProfileEdit',
           path: '/menteeProfileEdit',
           builder: (context, params) => const MenteeProfileEditWidget(),
-        ),
-        FFRoute(
-          name: 'MentorProfileEdit1',
-          path: '/mentorProfileEdit1',
-          builder: (context, params) => const MentorProfileEdit1Widget(),
-        ),
-        FFRoute(
-          name: 'MenteeHomeCopy1',
-          path: '/menteeHomeCopy1',
-          builder: (context, params) => const MenteeHomeCopy1Widget(),
-        ),
-        FFRoute(
-          name: 'SearchResult',
-          path: '/searchResult',
-          builder: (context, params) => const SearchResultWidget(),
         ),
         FFRoute(
           name: 'MentorForm',
@@ -205,29 +176,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const MentorProfileWidget(),
         ),
         FFRoute(
-          name: 'MentorPrevRequests',
-          path: '/mentorPrevRequests',
-          builder: (context, params) => const MentorPrevRequestsWidget(),
-        ),
-        FFRoute(
-          name: 'MenteeSearch',
-          path: '/menteeSearch',
-          builder: (context, params) => const MenteeSearchWidget(),
-        ),
-        FFRoute(
-          name: 'MentorHome',
-          path: '/mentorHome',
-          builder: (context, params) => const MentorHomeWidget(),
-        ),
-        FFRoute(
-          name: 'MenteeHome',
-          path: '/menteeHome',
-          builder: (context, params) => const MenteeHomeWidget(),
-        ),
-        FFRoute(
-          name: 'WelcomePage',
-          path: '/welcomePage',
-          builder: (context, params) => const WelcomePageWidget(),
+          name: 'MenteeSearchOld',
+          path: '/menteeSearchOld',
+          builder: (context, params) => const MenteeSearchOldWidget(),
         ),
         FFRoute(
           name: 'SelectionPage',
@@ -235,59 +186,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const SelectionPageWidget(),
         ),
         FFRoute(
-          name: 'loginVerification',
-          path: '/loginVerification',
-          builder: (context, params) => const LoginVerificationWidget(),
-        ),
-        FFRoute(
-          name: 'loginVerificationSuccess',
-          path: '/loginVerificationSuccess',
-          builder: (context, params) => const LoginVerificationSuccessWidget(),
-        ),
-        FFRoute(
-          name: 'AdminHome',
-          path: '/adminHome',
-          builder: (context, params) => const AdminHomeWidget(),
-        ),
-        FFRoute(
-          name: 'AdminUserManagement',
-          path: '/adminUserManagement',
-          builder: (context, params) => const AdminUserManagementWidget(),
-        ),
-        FFRoute(
-          name: 'AdminReports',
-          path: '/adminReports',
-          builder: (context, params) => const AdminReportsWidget(),
-        ),
-        FFRoute(
-          name: 'AdminApprovals',
-          path: '/adminApprovals',
-          builder: (context, params) => const AdminApprovalsWidget(),
-        ),
-        FFRoute(
           name: 'MentorProfileEdit',
           path: '/mentorProfileEdit',
           builder: (context, params) => const MentorProfileEditWidget(),
-        ),
-        FFRoute(
-          name: 'loginVerificationCopy',
-          path: '/loginVerificationCopy',
-          builder: (context, params) => const LoginVerificationCopyWidget(),
-        ),
-        FFRoute(
-          name: 'MentorProfileCopy',
-          path: '/mentorProfileCopy',
-          builder: (context, params) => const MentorProfileCopyWidget(),
-        ),
-        FFRoute(
-          name: 'chat_2_main',
-          path: '/chat2Main',
-          builder: (context, params) => const Chat2MainWidget(),
-        ),
-        FFRoute(
-          name: 'MentorPrevRequestsCopy',
-          path: '/mentorPrevRequestsCopy',
-          builder: (context, params) => const MentorPrevRequestsCopyWidget(),
         ),
         FFRoute(
           name: 'MentorRequests',
@@ -295,9 +196,169 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const MentorRequestsWidget(),
         ),
         FFRoute(
-          name: 'MenteeHomeCopy',
-          path: '/menteeHomeCopy',
-          builder: (context, params) => const MenteeHomeCopyWidget(),
+          name: 'MenteeHome',
+          path: '/menteeHome',
+          builder: (context, params) => const MenteeHomeWidget(),
+        ),
+        FFRoute(
+          name: 'MentorHome',
+          path: '/mentorHome',
+          builder: (context, params) => const MentorHomeWidget(),
+        ),
+        FFRoute(
+          name: 'MenteeProfileView',
+          path: '/menteeProfileView',
+          asyncParams: {
+            'menteeDoc': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => MenteeProfileViewWidget(
+            menteeDoc: params.getParam(
+              'menteeDoc',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'AdminUserManagement',
+          path: '/adminUserManagement',
+          builder: (context, params) => AdminUserManagementWidget(
+            role: params.getParam(
+              'role',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'AdminReports',
+          path: '/adminReports',
+          builder: (context, params) => AdminReportsWidget(
+            onUserRef: params.getParam(
+              'onUserRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+            onUserName: params.getParam(
+              'onUserName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ApprovalRequests',
+          path: '/approvalRequests',
+          builder: (context, params) => const ApprovalRequestsWidget(),
+        ),
+        FFRoute(
+          name: 'splash6',
+          path: '/splash6',
+          builder: (context, params) => const Splash6Widget(),
+        ),
+        FFRoute(
+          name: 'chat_main_mentor',
+          path: '/chatMainMentor',
+          builder: (context, params) => const ChatMainMentorWidget(),
+        ),
+        FFRoute(
+          name: 'MentorProfileView',
+          path: '/mentorProfileView',
+          asyncParams: {
+            'mentorDoc': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => MentorProfileViewWidget(
+            mentorDoc: params.getParam(
+              'mentorDoc',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'WaitPage',
+          path: '/waitPage',
+          builder: (context, params) => const WaitPageWidget(),
+        ),
+        FFRoute(
+          name: 'AdminHome',
+          path: '/adminHome',
+          builder: (context, params) => const AdminHomeWidget(),
+        ),
+        FFRoute(
+          name: 'chatPage',
+          path: '/chatPage',
+          builder: (context, params) => ChatPageWidget(
+            receiveChat: params.getParam(
+              'receiveChat',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['chats'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'LandingPage',
+          path: '/landingPage',
+          builder: (context, params) => const LandingPageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetingDetails',
+          path: '/meetingDetails',
+          builder: (context, params) => MeetingDetailsWidget(
+            chatRef: params.getParam(
+              'chatRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['chats'],
+            ),
+            theirRef: params.getParam(
+              'theirRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'WelcomePage',
+          path: '/welcomePage',
+          builder: (context, params) => const WelcomePageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetingDetailsCopy',
+          path: '/meetingDetailsCopy',
+          builder: (context, params) => MeetingDetailsCopyWidget(
+            chatRef: params.getParam(
+              'chatRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['chats'],
+            ),
+            theirRef: params.getParam(
+              'theirRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'MenteeSearch2',
+          path: '/menteeSearch2',
+          builder: (context, params) => const MenteeSearch2Widget(),
+        ),
+        FFRoute(
+          name: 'MenteeSearch',
+          path: '/menteeSearch',
+          builder: (context, params) => const MenteeSearchWidget(),
+        ),
+        FFRoute(
+          name: 'chat_main_mentee',
+          path: '/chatMainMentee',
+          builder: (context, params) => const ChatMainMenteeWidget(),
+        ),
+        FFRoute(
+          name: 'ConnectedMentees',
+          path: '/connectedMentees',
+          builder: (context, params) => const ConnectedMenteesWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -1,4 +1,4 @@
-import '/components/selecting_mentor_mentee/selecting_mentor_mentee_widget.dart';
+import '/askingpage/selecting_mentor_mentee/selecting_mentor_mentee_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'selection_page_widget.dart' show SelectionPageWidget;
 import 'package:flutter/material.dart';

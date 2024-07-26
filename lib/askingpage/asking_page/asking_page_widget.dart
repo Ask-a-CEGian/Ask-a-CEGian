@@ -70,7 +70,9 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
               constraints: const BoxConstraints(
                 maxWidth: 500.0,
               ),
-              decoration: const BoxDecoration(),
+              decoration: const BoxDecoration(
+                color: Color(0xFF012956),
+              ),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -87,9 +89,21 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 40.0,
+                              color: Color(0xFF012956),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                              spreadRadius: 20.0,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(0.0),
                           child: Image.asset(
                             'assets/images/close-up-hands-holding-diplomas-caps_1.jpg',
                             width: 380.0,
@@ -108,23 +122,32 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                         constraints: const BoxConstraints(
                           maxWidth: 500.0,
                         ),
-                        decoration: const BoxDecoration(
-                          boxShadow: [
+                        decoration: BoxDecoration(
+                          boxShadow: const [
                             BoxShadow(
-                              blurRadius: 25.0,
-                              color: Color(0xFFFFEBB9),
+                              blurRadius: 50.0,
+                              color: Color(0xFF012956),
                               offset: Offset(
                                 0.0,
                                 2.0,
                               ),
-                              spreadRadius: 36.0,
+                              spreadRadius: 30.0,
                             )
                           ],
                           gradient: LinearGradient(
-                            colors: [Color(0xFFFFEBB9), Color(0xFFFFEBB9)],
-                            stops: [0.0, 1.0],
-                            begin: AlignmentDirectional(0.0, -1.0),
-                            end: AlignmentDirectional(0, 1.0),
+                            colors: [
+                              FlutterFlowTheme.of(context).accent1,
+                              FlutterFlowTheme.of(context).secondary
+                            ],
+                            stops: const [0.0, 1.0],
+                            begin: const AlignmentDirectional(-0.64, 1.0),
+                            end: const AlignmentDirectional(0.64, -1.0),
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(0.0),
+                            bottomRight: Radius.circular(0.0),
+                            topLeft: Radius.circular(0.0),
+                            topRight: Radius.circular(0.0),
                           ),
                         ),
                         child: Column(
@@ -139,7 +162,7 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Mina',
-                                      color: const Color(0xFF3A3A3A),
+                                      color: Colors.black,
                                       fontSize: 47.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -148,44 +171,71 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                                     ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 50.0, 0.0, 0.0),
-                              child: FFButtonWidget(
-                                key: const ValueKey('Button_ogt6'),
-                                onPressed: () async {
-                                  context.pushNamed('login1');
-                                },
-                                text: 'Log in',
-                                options: FFButtonOptions(
-                                  width: 279.0,
-                                  height: 62.0,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: const Color(0xFF7B0708),
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
+                                      0.0, 10.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    key: const ValueKey('Button_ogt6'),
+                                    onPressed: () async {
+                                      context.pushNamed(
+                                        'login',
+                                        queryParameters: {
+                                          'signUp': serializeParam(
+                                            false,
+                                            ParamType.bool,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: const TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.scale,
+                                            alignment: Alignment.bottomCenter,
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                          ),
+                                        },
+                                      );
+                                    },
+                                    text: 'Log In',
+                                    options: FFButtonOptions(
+                                      width: 279.0,
+                                      height: 62.0,
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: const Color(0xFF1A1764),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
+                                                    .titleSmallFamily,
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmallFamily),
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
                                       ),
-                                  elevation: 3.0,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
-                              ),
+                              ],
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -207,40 +257,58 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                                     ),
                               ),
                             ),
-                            FFButtonWidget(
-                              key: const ValueKey('Button_kyb5'),
-                              onPressed: () async {
-                                context.pushNamed('SelectionPage');
-                              },
-                              text: 'Sign up',
-                              options: FFButtonOptions(
-                                width: 279.0,
-                                height: 62.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: const Color(0xFF7B0708),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleSmallFamily,
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.normal,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FFButtonWidget(
+                                  key: const ValueKey('Button_kyb5'),
+                                  onPressed: () async {
+                                    context.pushNamed(
+                                      'SelectionPage',
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: const TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.scale,
+                                          alignment: Alignment.bottomCenter,
+                                          duration: Duration(milliseconds: 300),
+                                        ),
+                                      },
+                                    );
+                                  },
+                                  text: 'Sign Up',
+                                  options: FFButtonOptions(
+                                    width: 279.0,
+                                    height: 62.0,
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: const Color(0xFF1A1764),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily),
+                                                  .titleSmallFamily,
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily),
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
                                     ),
-                                elevation: 3.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
+                              ],
                             ),
                           ],
                         ),

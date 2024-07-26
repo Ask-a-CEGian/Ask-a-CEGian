@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -45,30 +46,60 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "isMentor" field.
-  bool? _isMentor;
-  bool get isMentor => _isMentor ?? false;
-  bool hasIsMentor() => _isMentor != null;
+  // "branch" field.
+  String? _branch;
+  String get branch => _branch ?? '';
+  bool hasBranch() => _branch != null;
 
-  // "shortDescription" field.
-  String? _shortDescription;
-  String get shortDescription => _shortDescription ?? '';
-  bool hasShortDescription() => _shortDescription != null;
+  // "grad_year" field.
+  int? _gradYear;
+  int get gradYear => _gradYear ?? 0;
+  bool hasGradYear() => _gradYear != null;
 
-  // "last_active_time" field.
-  DateTime? _lastActiveTime;
-  DateTime? get lastActiveTime => _lastActiveTime;
-  bool hasLastActiveTime() => _lastActiveTime != null;
+  // "mentor_avail" field.
+  bool? _mentorAvail;
+  bool get mentorAvail => _mentorAvail ?? false;
+  bool hasMentorAvail() => _mentorAvail != null;
+
+  // "areas_interest" field.
+  List<String>? _areasInterest;
+  List<String> get areasInterest => _areasInterest ?? const [];
+  bool hasAreasInterest() => _areasInterest != null;
+
+  // "personal_statement" field.
+  String? _personalStatement;
+  String get personalStatement => _personalStatement ?? '';
+  bool hasPersonalStatement() => _personalStatement != null;
+
+  // "linkedin_url" field.
+  String? _linkedinUrl;
+  String get linkedinUrl => _linkedinUrl ?? '';
+  bool hasLinkedinUrl() => _linkedinUrl != null;
+
+  // "adminVerified" field.
+  bool? _adminVerified;
+  bool get adminVerified => _adminVerified ?? false;
+  bool hasAdminVerified() => _adminVerified != null;
 
   // "role" field.
   String? _role;
   String get role => _role ?? '';
   bool hasRole() => _role != null;
 
-  // "title" field.
-  String? _title;
-  String get title => _title ?? '';
-  bool hasTitle() => _title != null;
+  // "mentoring" field.
+  List<DocumentReference>? _mentoring;
+  List<DocumentReference> get mentoring => _mentoring ?? const [];
+  bool hasMentoring() => _mentoring != null;
+
+  // "requestedMentors" field.
+  List<DocumentReference>? _requestedMentors;
+  List<DocumentReference> get requestedMentors => _requestedMentors ?? const [];
+  bool hasRequestedMentors() => _requestedMentors != null;
+
+  // "acceptedMentors" field.
+  List<DocumentReference>? _acceptedMentors;
+  List<DocumentReference> get acceptedMentors => _acceptedMentors ?? const [];
+  bool hasAcceptedMentors() => _acceptedMentors != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -77,11 +108,17 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _isMentor = snapshotData['isMentor'] as bool?;
-    _shortDescription = snapshotData['shortDescription'] as String?;
-    _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
+    _branch = snapshotData['branch'] as String?;
+    _gradYear = castToType<int>(snapshotData['grad_year']);
+    _mentorAvail = snapshotData['mentor_avail'] as bool?;
+    _areasInterest = getDataList(snapshotData['areas_interest']);
+    _personalStatement = snapshotData['personal_statement'] as String?;
+    _linkedinUrl = snapshotData['linkedin_url'] as String?;
+    _adminVerified = snapshotData['adminVerified'] as bool?;
     _role = snapshotData['role'] as String?;
-    _title = snapshotData['title'] as String?;
+    _mentoring = getDataList(snapshotData['mentoring']);
+    _requestedMentors = getDataList(snapshotData['requestedMentors']);
+    _acceptedMentors = getDataList(snapshotData['acceptedMentors']);
   }
 
   static CollectionReference get collection =>
@@ -124,11 +161,13 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  bool? isMentor,
-  String? shortDescription,
-  DateTime? lastActiveTime,
+  String? branch,
+  int? gradYear,
+  bool? mentorAvail,
+  String? personalStatement,
+  String? linkedinUrl,
+  bool? adminVerified,
   String? role,
-  String? title,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -138,11 +177,13 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'isMentor': isMentor,
-      'shortDescription': shortDescription,
-      'last_active_time': lastActiveTime,
+      'branch': branch,
+      'grad_year': gradYear,
+      'mentor_avail': mentorAvail,
+      'personal_statement': personalStatement,
+      'linkedin_url': linkedinUrl,
+      'adminVerified': adminVerified,
       'role': role,
-      'title': title,
     }.withoutNulls,
   );
 
@@ -154,17 +195,24 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.isMentor == e2?.isMentor &&
-        e1?.shortDescription == e2?.shortDescription &&
-        e1?.lastActiveTime == e2?.lastActiveTime &&
+        e1?.branch == e2?.branch &&
+        e1?.gradYear == e2?.gradYear &&
+        e1?.mentorAvail == e2?.mentorAvail &&
+        listEquality.equals(e1?.areasInterest, e2?.areasInterest) &&
+        e1?.personalStatement == e2?.personalStatement &&
+        e1?.linkedinUrl == e2?.linkedinUrl &&
+        e1?.adminVerified == e2?.adminVerified &&
         e1?.role == e2?.role &&
-        e1?.title == e2?.title;
+        listEquality.equals(e1?.mentoring, e2?.mentoring) &&
+        listEquality.equals(e1?.requestedMentors, e2?.requestedMentors) &&
+        listEquality.equals(e1?.acceptedMentors, e2?.acceptedMentors);
   }
 
   @override
@@ -175,11 +223,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.isMentor,
-        e?.shortDescription,
-        e?.lastActiveTime,
+        e?.branch,
+        e?.gradYear,
+        e?.mentorAvail,
+        e?.areasInterest,
+        e?.personalStatement,
+        e?.linkedinUrl,
+        e?.adminVerified,
         e?.role,
-        e?.title
+        e?.mentoring,
+        e?.requestedMentors,
+        e?.acceptedMentors
       ]);
 
   @override

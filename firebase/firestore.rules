@@ -3,23 +3,9 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{document} {
       allow create: if request.auth.uid == document;
-      allow read: if request.auth.uid == document;
+      allow read: if true;
       allow write: if request.auth.uid == document;
-      allow delete: if request.auth.uid == document;
-    }
-
-    match /mentor/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
-    match /mentee/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
+      allow delete: if request.auth != null;
     }
 
     match /requests/{document} {
@@ -36,18 +22,49 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    match /chat_messages/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
     match /chats/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
+
+    match /chats/{parent}/chat_messages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/chat_messages/{document} {
+      allow read: if true;
+    }
+
+
+    match /admin_requests/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /user_reports/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /chats/{parent}/meetings/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/meetings/{document} {
+      allow read: if true;
+    }
+
   }
 }

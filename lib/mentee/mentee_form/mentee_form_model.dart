@@ -14,19 +14,11 @@ class MenteeFormModel extends FlutterFlowModel<MenteeFormWidget> {
   String? Function(BuildContext, String?)? fullNameTextControllerValidator;
   String? _fullNameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'Please enter the full name.';
+      return 'Field is required';
     }
 
-    return null;
-  }
-
-  // State field(s) for year_grad widget.
-  FocusNode? yearGradFocusNode;
-  TextEditingController? yearGradTextController;
-  String? Function(BuildContext, String?)? yearGradTextControllerValidator;
-  String? _yearGradTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Please enter the graduation year.';
+    if (val.length > 30) {
+      return 'Exceeded maximum characters';
     }
 
     return null;
@@ -38,16 +30,29 @@ class MenteeFormModel extends FlutterFlowModel<MenteeFormWidget> {
   String? Function(BuildContext, String?)? branchTextControllerValidator;
   String? _branchTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'Please enter the branch.';
+      return 'Field is required';
     }
 
     return null;
   }
 
+  // State field(s) for Graduationyear widget.
+  FocusNode? graduationyearFocusNode;
+  TextEditingController? graduationyearTextController;
+  String? Function(BuildContext, String?)?
+      graduationyearTextControllerValidator;
   // State field(s) for Linkedin widget.
   FocusNode? linkedinFocusNode;
   TextEditingController? linkedinTextController;
   String? Function(BuildContext, String?)? linkedinTextControllerValidator;
+  String? _linkedinTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for interestOptions widget.
   FormFieldController<List<String>>? interestOptionsValueController;
   List<String>? get interestOptionsValues =>
@@ -70,8 +75,8 @@ class MenteeFormModel extends FlutterFlowModel<MenteeFormWidget> {
   @override
   void initState(BuildContext context) {
     fullNameTextControllerValidator = _fullNameTextControllerValidator;
-    yearGradTextControllerValidator = _yearGradTextControllerValidator;
     branchTextControllerValidator = _branchTextControllerValidator;
+    linkedinTextControllerValidator = _linkedinTextControllerValidator;
     statementTextControllerValidator = _statementTextControllerValidator;
   }
 
@@ -81,11 +86,11 @@ class MenteeFormModel extends FlutterFlowModel<MenteeFormWidget> {
     fullNameFocusNode?.dispose();
     fullNameTextController?.dispose();
 
-    yearGradFocusNode?.dispose();
-    yearGradTextController?.dispose();
-
     branchFocusNode?.dispose();
     branchTextController?.dispose();
+
+    graduationyearFocusNode?.dispose();
+    graduationyearTextController?.dispose();
 
     linkedinFocusNode?.dispose();
     linkedinTextController?.dispose();

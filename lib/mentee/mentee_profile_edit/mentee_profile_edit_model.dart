@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'mentee_profile_edit_widget.dart' show MenteeProfileEditWidget;
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class MenteeProfileEditModel extends FlutterFlowModel<MenteeProfileEditWidget> {
   ///  State fields for stateful widgets in this page.
@@ -14,6 +15,7 @@ class MenteeProfileEditModel extends FlutterFlowModel<MenteeProfileEditWidget> {
   // State field(s) for GraduationYear widget.
   FocusNode? graduationYearFocusNode;
   TextEditingController? graduationYearTextController;
+  final graduationYearMask = MaskTextInputFormatter(mask: '####');
   String? Function(BuildContext, String?)?
       graduationYearTextControllerValidator;
   // State field(s) for Branch widget.
@@ -35,11 +37,6 @@ class MenteeProfileEditModel extends FlutterFlowModel<MenteeProfileEditWidget> {
       interestOptionsValueController?.value;
   set interestOptionsValues(List<String>? v) =>
       interestOptionsValueController?.value = v;
-
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
 
   @override
   void initState(BuildContext context) {}

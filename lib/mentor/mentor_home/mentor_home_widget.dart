@@ -1,11 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/mentor_settings/mentor_settings_widget.dart';
+import '/empty_list_widgets/no_mentors_found/no_mentors_found_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:math' as math;
-import 'package:easy_debounce/easy_debounce.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/mentor/mentor_settings/mentor_settings_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'mentor_home_model.dart';
@@ -28,9 +28,6 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
     super.initState();
     _model = createModel(context, () => MentorHomeModel());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
-
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -47,565 +44,729 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Colors.white,
-        drawer: SizedBox(
-          width: 370.0,
-          child: Drawer(
-            elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mentorSettingsModel,
-              updateCallback: () => setState(() {}),
-              child: const MentorSettingsWidget(),
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: Colors.white,
+          drawer: SizedBox(
+            width: 370.0,
+            child: Drawer(
+              elevation: 16.0,
+              child: wrapWithModel(
+                model: _model.mentorSettingsModel,
+                updateCallback: () => setState(() {}),
+                child: const MentorSettingsWidget(),
+              ),
             ),
           ),
-        ),
-        body: Stack(
-          children: [
-            StreamBuilder<List<MentorRecord>>(
-              stream: queryMentorRecord(
-                queryBuilder: (mentorRecord) => mentorRecord.where(
-                  'mentor_user_ref',
-                  isEqualTo: currentUserReference,
-                ),
-                singleRecord: true,
-              ),
-              builder: (context, snapshot) {
-                // Customize what your widget looks like when it's loading.
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: SizedBox(
-                      width: 50.0,
-                      height: 50.0,
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          FlutterFlowTheme.of(context).primary,
+          body: Stack(
+            children: [
+              Align(
+                alignment: const AlignmentDirectional(0.0, -0.81),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 0.0, 0.0),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => Text(
+                          'Welcome aboard $currentUserDisplayName',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Inter',
+                                color: const Color(0xFF061B45),
+                                fontSize: 22.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts:
+                                    GoogleFonts.asMap().containsKey('Inter'),
+                              ),
                         ),
                       ),
                     ),
-                  );
-                }
-                List<MentorRecord> columnMentorRecordList = snapshot.data!;
-
-                // Return an empty Container when the item does not exist.
-                if (snapshot.data!.isEmpty) {
-                  return Container();
-                }
-                final columnMentorRecord = columnMentorRecordList.isNotEmpty
-                    ? columnMentorRecordList.first
-                    : null;
-                return Column(
+                  ],
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, -0.64),
+                child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              21.0, 330.0, 0.0, 0.0),
-                          child: Text(
-                            'Statistics',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.black,
-                                  fontSize: 17.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts:
-                                      GoogleFonts.asMap().containsKey('Inter'),
-                                ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              21.0, 371.0, 0.0, 0.0),
-                          child: Container(
-                            width: 370.0,
-                            height: 89.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFECDDD8),
-                              borderRadius: BorderRadius.circular(12.0),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        'Statistics',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily:
+                                  FlutterFlowTheme.of(context).bodyMediumFamily,
+                              color: const Color(0xFF8C601B),
+                              fontSize: 22.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                              useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                  FlutterFlowTheme.of(context)
+                                      .bodyMediumFamily),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              21.0, 492.0, 0.0, 0.0),
-                          child: Container(
-                            width: 370.0,
-                            height: 89.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFECDDD8),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              36.0, 394.0, 0.0, 0.0),
-                          child: Container(
-                            width: 30.0,
-                            height: 30.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: const Icon(
-                              Icons.groups_2,
-                              color: Colors.black,
-                              size: 24.0,
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(-1.0, -1.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                36.0, 426.0, 0.0, 0.0),
-                            child: Text(
-                              'Total mentorships',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyLarge
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily,
-                                    color: Colors.black,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodyLargeFamily),
-                                  ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              36.0, 512.0, 0.0, 0.0),
-                          child: Container(
-                            width: 30.0,
-                            height: 30.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: const Icon(
-                              Icons.calendar_month,
-                              color: Colors.black,
-                              size: 24.0,
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(-1.0, -1.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                36.0, 542.0, 0.0, 0.0),
-                            child: Text(
-                              'Upcoming meetings',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyLarge
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily,
-                                    color: Colors.black,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodyLargeFamily),
-                                  ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              299.97, 328.0, 0.0, 0.0),
-                          child: Transform.rotate(
-                            angle: 45.0 * (math.pi / 180),
-                            origin: const Offset(-45.0, 0),
-                            child: Container(
-                              width: 137.32,
-                              height: 27.46,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, -0.51),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                      child: Container(
+                        width: 350.0,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF22437A),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0xFF3C769D),
+                              offset: Offset(
+                                0.0,
+                                2.0,
                               ),
-                            ),
-                          ),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              278.5, 378.08, 0.0, 0.0),
-                          child: Transform.rotate(
-                            angle: 45.0 * (math.pi / 180),
-                            origin: const Offset(-45.0, 0),
-                            child: Container(
-                              width: 137.32,
-                              height: 27.46,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              232.24, 554.37, 0.0, 0.0),
-                          child: Transform.rotate(
-                            angle: 45.0 * (math.pi / 180),
-                            origin: const Offset(-45.0, 0),
-                            child: Container(
-                              width: 137.32,
-                              height: 27.46,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              244.5, 495.08, 0.0, 0.0),
-                          child: Transform.rotate(
-                            angle: 45.0 * (math.pi / 180),
-                            origin: const Offset(-45.0, 0),
-                            child: Container(
-                              width: 137.32,
-                              height: 27.46,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              265.97, 445.0, 0.0, 0.0),
-                          child: Transform.rotate(
-                            angle: 45.0 * (math.pi / 180),
-                            origin: const Offset(-45.0, 0),
-                            child: Container(
-                              width: 137.32,
-                              height: 2.0,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              266.24, 437.37, 0.0, 0.0),
-                          child: Transform.rotate(
-                            angle: 45.0 * (math.pi / 180),
-                            origin: const Offset(-45.0, 0),
-                            child: Container(
-                              width: 137.32,
-                              height: 27.46,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, -1.13),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                336.0, 400.0, 0.0, 0.0),
-                            child: FutureBuilder<int>(
-                              future: queryMentorshipsRecordCount(
-                                queryBuilder: (mentorshipsRecord) =>
-                                    mentorshipsRecord.where(
-                                  'mentor_ref',
-                                  isEqualTo: columnMentorRecord?.reference,
-                                ),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                int textCount = snapshot.data!;
-
-                                return Text(
-                                  valueOrDefault<String>(
-                                    textCount.toString(),
-                                    '0',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: Colors.black,
-                                        fontSize: 36.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey('Inter'),
-                                      ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              336.0, 520.0, 0.0, 0.0),
-                          child: Text(
-                            '1',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.black,
-                                  fontSize: 36.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts:
-                                      GoogleFonts.asMap().containsKey('Inter'),
-                                ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 140.0, 0.0, 0.0),
-                            child: Container(
-                              width: 342.0,
-                              height: 132.0,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFE6E6E6),
-                                borderRadius: BorderRadius.circular(14.0),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 10.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Welcome aboard ${columnMentorRecord?.mentorName}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: Colors.black,
-                                            fontSize: 20.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey('Inter'),
-                                          ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        15.0, 55.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. \n  ',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: const Color(0xFF6D6D6D),
-                                            fontSize: 14.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey('Inter'),
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 59.0, 0.0, 0.0),
-                            child: Container(
-                              width: 343.0,
-                              height: 36.0,
-                              constraints: const BoxConstraints(
-                                maxWidth: 500.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFE6E6E6),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Stack(
-                                    children: [
-                                      FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 20.0,
-                                        borderWidth: 1.0,
-                                        buttonSize: 40.0,
-                                        icon: const Icon(
-                                          Icons.search_rounded,
-                                          color: Color(0xFF57636C),
-                                          size: 24.0,
-                                        ),
-                                        onPressed: () {
-                                          print('IconButton pressed ...');
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          40.0, 0.0, 0.0, 0.0),
-                                      child: TextFormField(
-                                        controller: _model.textController,
-                                        focusNode: _model.textFieldFocusNode,
-                                        onChanged: (_) => EasyDebounce.debounce(
-                                          '_model.textController',
-                                          const Duration(milliseconds: 2000),
-                                          () => setState(() {}),
-                                        ),
-                                        autofocus: true,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          isDense: false,
-                                          labelStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .labelMedium
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          const AlignmentDirectional(-1.0, -1.0),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            3.0, 55.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Total mentorships',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily,
+                                                        .bodyLargeFamily,
+                                                color: Colors.black,
                                                 letterSpacing: 0.0,
                                                 useGoogleFonts: GoogleFonts
                                                         .asMap()
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .labelMediumFamily),
+                                                            .bodyLargeFamily),
                                               ),
-                                          alignLabelWithHint: false,
-                                          hintText: '     Search',
-                                          hintStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .labelSmall
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color: const Color(0x9C3C4399),
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts:
-                                                    GoogleFonts.asMap()
-                                                        .containsKey('Inter'),
-                                              ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          filled: true,
-                                          fillColor: const Color(0xFFE6E6E6),
-                                          contentPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  20.0, 0.0, 0.0, 0.0),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelSmall
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color: Colors.black,
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey('Inter'),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 20.0, 0.0, 0.0),
+                                      child: Container(
+                                        width: 30.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        child: const Icon(
+                                          Icons.groups_sharp,
+                                          color: Colors.black,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  50.0, 0.0, 0.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, -1.13),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  50.0, 30.0, 5.0, 0.0),
+                                          child: FutureBuilder<int>(
+                                            future: queryMentorshipsRecordCount(
+                                              queryBuilder:
+                                                  (mentorshipsRecord) =>
+                                                      mentorshipsRecord.where(
+                                                'user_refs',
+                                                arrayContains:
+                                                    currentUserReference,
+                                              ),
                                             ),
-                                        validator: _model
-                                            .textControllerValidator
-                                            .asValidator(context),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              int textCount = snapshot.data!;
+
+                                              return InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await queryMentorshipsRecordCount();
+                                                },
+                                                child: Text(
+                                                  valueOrDefault<String>(
+                                                    textCount.toString(),
+                                                    '0',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color: Colors.black,
+                                                        fontSize: 36.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts:
+                                                            GoogleFonts.asMap()
+                                                                .containsKey(
+                                                                    'Inter'),
+                                                      ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        300.0, 0.0, 0.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderColor: Colors.transparent,
-                                      borderRadius: 20.0,
-                                      borderWidth: 0.0,
-                                      buttonSize: 40.0,
-                                      icon: Icon(
-                                        Icons.keyboard_voice_sharp,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        size: 24.0,
-                                      ),
-                                      onPressed: () {
-                                        print('IconButton pressed ...');
-                                      },
-                                    ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ],
-                );
-              },
-            ),
-            Stack(
-              children: [
-                Column(
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, -0.21),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                      child: Container(
+                        width: 350.0,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2E736D),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0xFF3C769D),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          const AlignmentDirectional(-1.0, -1.0),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            3.0, 55.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Upcoming meetings',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLargeFamily,
+                                                color: Colors.black,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyLargeFamily),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 20.0, 0.0, 0.0),
+                                      child: Container(
+                                        width: 30.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        child: const Icon(
+                                          Icons.calendar_month,
+                                          color: Colors.black,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  50.0, 0.0, 0.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, -1.13),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  50.0, 30.0, 5.0, 0.0),
+                                          child: Text(
+                                            '09',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: Colors.black,
+                                                  fontSize: 36.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey('Inter'),
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, 0.03),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'Connected Mentees',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                color: const Color(0xFF8C601B),
+                                fontSize: 20.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .bodyMediumFamily),
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, 0.2),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 280.0, 0.0, 0.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 200.0,
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                          ),
+                          child: StreamBuilder<List<UsersRecord>>(
+                            stream: queryUsersRecord(
+                              queryBuilder: (usersRecord) => usersRecord.where(
+                                'role',
+                                isEqualTo: 'Mentor',
+                              ),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<UsersRecord> listViewUsersRecordList =
+                                  snapshot.data!;
+                              if (listViewUsersRecordList.isEmpty) {
+                                return const NoMentorsFoundWidget();
+                              }
+
+                              return ListView.separated(
+                                padding: const EdgeInsets.fromLTRB(
+                                  30.0,
+                                  0,
+                                  0,
+                                  0,
+                                ),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: listViewUsersRecordList.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(width: 20.0),
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewUsersRecord =
+                                      listViewUsersRecordList[listViewIndex];
+                                  return Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: Container(
+                                      width: 175.0,
+                                      constraints: const BoxConstraints(
+                                        maxWidth: 500.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Color(0x34090F13),
+                                            offset: Offset(
+                                              0.0,
+                                              0.0,
+                                            ),
+                                          )
+                                        ],
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Color(0xFF3C769D),
+                                            Color(0xFF999992)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin:
+                                              AlignmentDirectional(-1.0, -0.87),
+                                          end: AlignmentDirectional(1.0, 0.87),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, -1.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  140.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        constraints:
+                                                            const BoxConstraints(
+                                                          maxWidth: 500.0,
+                                                        ),
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            context.pushNamed(
+                                                              'MentorProfileView',
+                                                              queryParameters: {
+                                                                'mentorDoc':
+                                                                    serializeParam(
+                                                                  listViewUsersRecord,
+                                                                  ParamType
+                                                                      .Document,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                'mentorDoc':
+                                                                    listViewUsersRecord,
+                                                              },
+                                                            );
+                                                          },
+                                                          text: 'VISIT PROFILE',
+                                                          options:
+                                                              FFButtonOptions(
+                                                            height: 40.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: const Color(
+                                                                0xFFE6E6E6),
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .labelSmallFamily,
+                                                                      color: const Color(
+                                                                          0xFFFF0000),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).labelSmallFamily),
+                                                                    ),
+                                                            elevation: 3.0,
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, -1.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  100.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        constraints:
+                                                            const BoxConstraints(
+                                                          maxWidth: 500.0,
+                                                        ),
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: Text(
+                                                          listViewUsersRecord
+                                                              .displayName,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: Colors
+                                                                    .black,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, -1.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  25.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        constraints:
+                                                            const BoxConstraints(
+                                                          maxWidth: 500.0,
+                                                        ),
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      50.0),
+                                                          child: Image.network(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              listViewUsersRecord
+                                                                  .photoUrl,
+                                                              'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/ask-a-cegian-6q7f9f/assets/58j77idojgtm/Group_(1).png',
+                                                            ),
+                                                            width: 60.0,
+                                                            height: 60.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, 1.0),
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -690,22 +851,22 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
                                       FlutterFlowTheme.of(context).secondary,
                                   hoverIconColor: const Color(0xFFFF0000),
                                   icon: const Icon(
-                                    Icons.notification_add_sharp,
-                                    color: Colors.black,
+                                    Icons.mark_unread_chat_alt,
+                                    color: Color(0xFF0B629F),
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
-                                    context.pushNamed('MentorRequests');
+                                    context.pushNamed('chat_main_mentor');
                                   },
                                 ),
                                 Text(
-                                  'Notifications',
+                                  'Chats',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: Colors.black,
+                                        color: const Color(0xFF0B629F),
                                         letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -728,13 +889,13 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
                                       FlutterFlowTheme.of(context).secondary,
                                   hoverIconColor: const Color(0xFFFF0000),
                                   icon: const Icon(
-                                    Icons.person_sharp,
-                                    color: Colors.black,
+                                    Icons.people_alt_sharp,
+                                    color: Color(0xFF0B629F),
                                     size: 28.0,
                                   ),
                                   onPressed: () async {
                                     context.pushNamed(
-                                      'MentorProfile',
+                                      'MentorRequests',
                                       extra: <String, dynamic>{
                                         kTransitionInfoKey: const TransitionInfo(
                                           hasTransition: true,
@@ -747,13 +908,13 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
                                   },
                                 ),
                                 Text(
-                                  'Profile',
+                                  'Requests',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: Colors.black,
+                                        color: const Color(0xFF0B629F),
                                         letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -777,7 +938,7 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
                                   hoverIconColor: const Color(0xFFFF0000),
                                   icon: const Icon(
                                     Icons.settings_sharp,
-                                    color: Colors.black,
+                                    color: Color(0xFF0B629F),
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
@@ -791,7 +952,7 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: Colors.black,
+                                        color: const Color(0xFF0B629F),
                                         letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -810,9 +971,9 @@ class _MentorHomeWidgetState extends State<MentorHomeWidget> {
                     ),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
