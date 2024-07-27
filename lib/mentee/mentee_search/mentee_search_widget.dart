@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/empty_list_widgets/no_suggestions/no_suggestions_widget.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -98,133 +99,55 @@ class _MenteeSearchWidgetState extends State<MenteeSearchWidget> {
                 child: Stack(
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(15.0, 30.0, 15.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          15.0, 30.0, 15.0, 90.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Container(
-                            width: double.infinity,
-                            height: 44.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    child: Autocomplete<String>(
-                                      initialValue: const TextEditingValue(),
-                                      optionsBuilder: (textEditingValue) {
-                                        if (textEditingValue.text == '') {
-                                          return const Iterable<String>.empty();
-                                        }
-                                        return _model.simpleSearchResults
-                                            .map((e) => e.displayName)
-                                            .toList()
-                                            .where((option) {
-                                          final lowercaseOption =
-                                              option.toLowerCase();
-                                          return lowercaseOption.contains(
-                                              textEditingValue.text
-                                                  .toLowerCase());
-                                        });
-                                      },
-                                      optionsViewBuilder:
-                                          (context, onSelected, options) {
-                                        return AutocompleteOptionsList(
-                                          textFieldKey: _model.textFieldKey,
-                                          textController:
-                                              _model.textController!,
-                                          options: options.toList(),
-                                          onSelected: onSelected,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
-                                              ),
-                                          textHighlightStyle: const TextStyle(),
-                                          elevation: 4.0,
-                                          optionBackgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                          optionHighlightColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
-                                          maxHeight: 200.0,
-                                        );
-                                      },
-                                      onSelected: (String selection) {
-                                        setState(() =>
-                                            _model.textFieldSelectedOption =
-                                                selection);
-                                        FocusScope.of(context).unfocus();
-                                      },
-                                      fieldViewBuilder: (
-                                        context,
-                                        textEditingController,
-                                        focusNode,
-                                        onEditingComplete,
-                                      ) {
-                                        _model.textFieldFocusNode = focusNode;
-
-                                        _model.textController =
-                                            textEditingController;
-                                        return TextFormField(
-                                          key: _model.textFieldKey,
-                                          controller: textEditingController,
-                                          focusNode: focusNode,
-                                          onEditingComplete: onEditingComplete,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.textController',
-                                            const Duration(milliseconds: 2000),
-                                            () async {
-                                              safeSetState(() {
-                                                _model.simpleSearchResults =
-                                                    TextSearch(
-                                                  menteeSearchUsersRecordList
-                                                      .map(
-                                                        (record) =>
-                                                            TextSearchItem
-                                                                .fromTerms(
-                                                                    record, [
-                                                          record.displayName,
-                                                          record.branch
-                                                        ]),
-                                                      )
-                                                      .toList(),
-                                                )
-                                                        .search(_model
-                                                            .textController
-                                                            .text)
-                                                        .map((r) => r.object)
-                                                        .toList();
-                                              });
-                                              _model.searchActive = true;
-                                              setState(() {});
-                                            },
-                                          ),
-                                          autofocus: false,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: '  Search',
-                                            labelStyle:
+                          SafeArea(
+                            child: Container(
+                              width: double.infinity,
+                              height: 44.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: Autocomplete<String>(
+                                        initialValue: const TextEditingValue(),
+                                        optionsBuilder: (textEditingValue) {
+                                          if (textEditingValue.text == '') {
+                                            return const Iterable<
+                                                String>.empty();
+                                          }
+                                          return _model.simpleSearchResults
+                                              .map((e) => e.displayName)
+                                              .toList()
+                                              .where((option) {
+                                            final lowercaseOption =
+                                                option.toLowerCase();
+                                            return lowercaseOption.contains(
+                                                textEditingValue.text
+                                                    .toLowerCase());
+                                          });
+                                        },
+                                        optionsViewBuilder:
+                                            (context, onSelected, options) {
+                                          return AutocompleteOptionsList(
+                                            textFieldKey: _model.textFieldKey,
+                                            textController:
+                                                _model.textController!,
+                                            options: options.toList(),
+                                            onSelected: onSelected,
+                                            textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
                                                     .override(
@@ -232,7 +155,6 @@ class _MenteeSearchWidgetState extends State<MenteeSearchWidget> {
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .bodyMediumFamily,
-                                                      color: Colors.black,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts: GoogleFonts
                                                               .asMap()
@@ -241,197 +163,312 @@ class _MenteeSearchWidgetState extends State<MenteeSearchWidget> {
                                                                       context)
                                                                   .bodyMediumFamily),
                                                     ),
-                                            alignLabelWithHint: false,
-                                            hintStyle:
+                                            textHighlightStyle: const TextStyle(),
+                                            elevation: 4.0,
+                                            optionBackgroundColor:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      fontFamily:
+                                                    .primaryBackground,
+                                            optionHighlightColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            maxHeight: 200.0,
+                                          );
+                                        },
+                                        onSelected: (String selection) {
+                                          setState(() =>
+                                              _model.textFieldSelectedOption =
+                                                  selection);
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        fieldViewBuilder: (
+                                          context,
+                                          textEditingController,
+                                          focusNode,
+                                          onEditingComplete,
+                                        ) {
+                                          _model.textFieldFocusNode = focusNode;
+
+                                          _model.textController =
+                                              textEditingController;
+                                          return TextFormField(
+                                            key: _model.textFieldKey,
+                                            controller: textEditingController,
+                                            focusNode: focusNode,
+                                            onEditingComplete:
+                                                onEditingComplete,
+                                            onChanged: (_) =>
+                                                EasyDebounce.debounce(
+                                              '_model.textController',
+                                              const Duration(milliseconds: 2000),
+                                              () async {
+                                                safeSetState(() {
+                                                  _model.simpleSearchResults =
+                                                      TextSearch(
+                                                    menteeSearchUsersRecordList
+                                                        .map(
+                                                          (record) =>
+                                                              TextSearchItem
+                                                                  .fromTerms(
+                                                                      record, [
+                                                            record.displayName,
+                                                            record.branch
+                                                          ]),
+                                                        )
+                                                        .toList(),
+                                                  )
+                                                          .search(_model
+                                                              .textController
+                                                              .text)
+                                                          .map((r) => r.object)
+                                                          .toList();
+                                                });
+                                                _model.searchActive = true;
+                                                setState(() {});
+                                              },
+                                            ),
+                                            autofocus: false,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText: '  Search',
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color: Colors.black,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                              alignLabelWithHint: false,
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily),
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                  color: Color(0xFF1D4569),
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily,
+                                                  color: Colors.black,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .labelMediumFamily,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily),
-                                                    ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Color(0xFF1D4569),
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
-                                                color: Colors.black,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
-                                              ),
-                                          validator: _model
-                                              .textControllerValidator
-                                              .asValidator(context),
-                                        );
-                                      },
+                                                              .bodyMediumFamily),
+                                                ),
+                                            validator: _model
+                                                .textControllerValidator
+                                                .asValidator(context),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                                FlutterFlowIconButton(
-                                  borderRadius: 20.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 30.0,
-                                  icon: const Icon(
-                                    Icons.clear_sharp,
-                                    color: Colors.black,
-                                    size: 15.0,
+                                  FlutterFlowIconButton(
+                                    borderRadius: 20.0,
+                                    borderWidth: 1.0,
+                                    buttonSize: 30.0,
+                                    icon: const Icon(
+                                      Icons.clear_sharp,
+                                      color: Colors.black,
+                                      size: 15.0,
+                                    ),
+                                    onPressed: () async {
+                                      setState(() {
+                                        _model.textController?.clear();
+                                      });
+                                      _model.searchActive = false;
+                                      setState(() {});
+                                    },
                                   ),
-                                  onPressed: () async {
-                                    setState(() {
-                                      _model.textController?.clear();
-                                    });
-                                    _model.searchActive = false;
-                                    setState(() {});
-                                  },
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                          if (_model.searchActive)
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Search Result',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        color: Colors.black,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (_model.searchActive)
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Search Result',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
+                                                    .bodyMediumFamily,
+                                            color: Colors.black,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
+                                          ),
+                                    ),
+                                    Text(
+                                      valueOrDefault<String>(
+                                        _model.simpleSearchResults.length
+                                            .toString(),
+                                        '00',
                                       ),
-                                ),
-                                Text(
-                                  valueOrDefault<String>(
-                                    _model.simpleSearchResults.length
-                                        .toString(),
-                                    '00',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        color: Colors.black,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
-                                      ),
+                                                    .bodyMediumFamily,
+                                            color: Colors.black,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          if (!_model.searchActive)
-                            Builder(
-                              builder: (context) {
-                                final defaultList =
-                                    menteeSearchUsersRecordList.toList();
+                              if (!_model.searchActive)
+                                Builder(
+                                  builder: (context) {
+                                    final defaultList =
+                                        menteeSearchUsersRecordList.toList();
+                                    if (defaultList.isEmpty) {
+                                      return const Center(
+                                        child: SizedBox(
+                                          width: 300.0,
+                                          child: NoSuggestionsWidget(),
+                                        ),
+                                      );
+                                    }
 
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: defaultList.length,
-                                  separatorBuilder: (_, __) =>
-                                      const SizedBox(height: 10.0),
-                                  itemBuilder: (context, defaultListIndex) {
-                                    final defaultListItem =
-                                        defaultList[defaultListIndex];
-                                    return MentorRequestCardWidget(
-                                      key: Key(
-                                          'Key09k_${defaultListIndex}_of_${defaultList.length}'),
-                                      mentorDoc: defaultListItem,
+                                    return ListView.separated(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: defaultList.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 10.0),
+                                      itemBuilder: (context, defaultListIndex) {
+                                        final defaultListItem =
+                                            defaultList[defaultListIndex];
+                                        return MentorRequestCardWidget(
+                                          key: Key(
+                                              'Key09k_${defaultListIndex}_of_${defaultList.length}'),
+                                          mentorDoc: defaultListItem,
+                                        );
+                                      },
                                     );
                                   },
-                                );
-                              },
-                            ),
-                          if (_model.searchActive)
-                            Builder(
-                              builder: (context) {
-                                final queryList =
-                                    _model.simpleSearchResults.toList();
+                                ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (_model.searchActive)
+                                Builder(
+                                  builder: (context) {
+                                    final queryList =
+                                        _model.simpleSearchResults.toList();
+                                    if (queryList.isEmpty) {
+                                      return const Center(
+                                        child: SizedBox(
+                                          width: 300.0,
+                                          child: NoSuggestionsWidget(),
+                                        ),
+                                      );
+                                    }
 
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: queryList.length,
-                                  separatorBuilder: (_, __) =>
-                                      const SizedBox(height: 10.0),
-                                  itemBuilder: (context, queryListIndex) {
-                                    final queryListItem =
-                                        queryList[queryListIndex];
-                                    return MentorRequestCardWidget(
-                                      key: Key(
-                                          'Key6n6_${queryListIndex}_of_${queryList.length}'),
-                                      mentorDoc: queryListItem,
+                                    return ListView.separated(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: queryList.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 10.0),
+                                      itemBuilder: (context, queryListIndex) {
+                                        final queryListItem =
+                                            queryList[queryListIndex];
+                                        return MentorRequestCardWidget(
+                                          key: Key(
+                                              'Key6n6_${queryListIndex}_of_${queryList.length}'),
+                                          mentorDoc: queryListItem,
+                                        );
+                                      },
                                     );
                                   },
-                                );
-                              },
-                            ),
+                                ),
+                            ],
+                          ),
                         ].divide(const SizedBox(height: 10.0)),
                       ),
                     ),

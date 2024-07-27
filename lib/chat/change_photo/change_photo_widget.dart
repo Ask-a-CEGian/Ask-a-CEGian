@@ -45,7 +45,7 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 60.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 350.0,

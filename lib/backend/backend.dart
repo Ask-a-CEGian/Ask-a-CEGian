@@ -10,7 +10,6 @@ import 'schema/requests_record.dart';
 import 'schema/mentorships_record.dart';
 import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
-import 'schema/admin_requests_record.dart';
 import 'schema/user_reports_record.dart';
 import 'schema/meetings_record.dart';
 
@@ -26,7 +25,6 @@ export 'schema/requests_record.dart';
 export 'schema/mentorships_record.dart';
 export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
-export 'schema/admin_requests_record.dart';
 export 'schema/user_reports_record.dart';
 export 'schema/meetings_record.dart';
 
@@ -213,43 +211,6 @@ Future<List<ChatMessagesRecord>> queryChatMessagesRecordOnce({
     queryCollectionOnce(
       ChatMessagesRecord.collection(parent),
       ChatMessagesRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query AdminRequestsRecords (as a Stream and as a Future).
-Future<int> queryAdminRequestsRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      AdminRequestsRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<AdminRequestsRecord>> queryAdminRequestsRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      AdminRequestsRecord.collection,
-      AdminRequestsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<AdminRequestsRecord>> queryAdminRequestsRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      AdminRequestsRecord.collection,
-      AdminRequestsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

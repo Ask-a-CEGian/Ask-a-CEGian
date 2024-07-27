@@ -77,7 +77,10 @@ class _MentorRequestCardWidgetState extends State<MentorRequestCardWidget> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      widget.mentorDoc!.photoUrl,
+                      valueOrDefault<String>(
+                        widget.mentorDoc?.photoUrl,
+                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/ask-a-cegian-6q7f9f/assets/3l034mi77mah/Group_(1).svg',
+                      ),
                       width: 80.0,
                       height: 80.0,
                       fit: BoxFit.cover,
@@ -97,6 +100,7 @@ class _MentorRequestCardWidgetState extends State<MentorRequestCardWidget> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color: Colors.black,
+                            fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                             useGoogleFonts:
@@ -109,47 +113,36 @@ class _MentorRequestCardWidgetState extends State<MentorRequestCardWidget> {
                       if ((currentUserDocument?.requestedMentors.toList() ??
                               [])
                           .contains(widget.mentorDoc?.reference)) {
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 20.0, 0.0, 20.0),
-                              child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
-                                },
-                                text: 'Sent',
-                                options: FFButtonOptions(
-                                  width: 120.0,
-                                  height: 30.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: const Color(0xFFFF0000),
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .bodyMediumFamily,
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
-                                      ),
-                                  elevation: 3.0,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                        return FFButtonWidget(
+                          onPressed: () {
+                            print('Button pressed ...');
+                          },
+                          text: 'Requested',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .titleSmallFamily,
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .titleSmallFamily),
                                 ),
-                              ),
+                            elevation: 3.0,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
                             ),
-                          ],
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         );
                       } else if ((currentUserDocument?.acceptedMentors
                                   .toList() ??
@@ -176,7 +169,7 @@ class _MentorRequestCardWidgetState extends State<MentorRequestCardWidget> {
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     letterSpacing: 0.0,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(

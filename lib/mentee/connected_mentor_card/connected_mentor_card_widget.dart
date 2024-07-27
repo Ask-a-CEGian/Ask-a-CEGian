@@ -69,16 +69,21 @@ class _ConnectedMentorCardWidgetState extends State<ConnectedMentorCardWidget> {
         return Container(
           width: 180.0,
           decoration: BoxDecoration(
-            color: const Color(0xFFE6E6E6),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x34090F13),
+                color: Color(0xFF3C769D),
                 offset: Offset(
                   0.0,
                   0.0,
                 ),
               )
             ],
+            gradient: const LinearGradient(
+              colors: [Color(0xFF3C769D), Color(0xFF999992)],
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(-1.0, -0.87),
+              end: AlignmentDirectional(1.0, 0.87),
+            ),
             borderRadius: BorderRadius.circular(0.0),
           ),
           child: Column(
@@ -157,12 +162,12 @@ class _ConnectedMentorCardWidgetState extends State<ConnectedMentorCardWidget> {
                           text: 'Visit Profile',
                           options: FFButtonOptions(
                             width: 115.0,
-                            height: 25.0,
+                            height: 35.0,
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: Colors.transparent,
+                            color: const Color(0xFFE6E6E6),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -176,8 +181,8 @@ class _ConnectedMentorCardWidgetState extends State<ConnectedMentorCardWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).accent1,
+                            borderSide: const BorderSide(
+                              color: Color(0xFF082C3D),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),

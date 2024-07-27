@@ -1605,7 +1605,7 @@ class _MentorProfileEditWidgetState extends State<MentorProfileEditWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Inter',
-                                        color: const Color(0xFF0A84FF),
+                                        color: const Color(0xFF0B1454),
                                         fontSize: 20.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,

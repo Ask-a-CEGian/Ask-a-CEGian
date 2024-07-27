@@ -1428,6 +1428,8 @@ class _MentorFormWidgetState extends State<MentorFormWidget> {
                                                   linkedinUrl: _model
                                                       .linkedInTextController
                                                       .text,
+                                                  userState:
+                                                      UserState.UNVERIFIED,
                                                 ),
                                                 ...mapToFirestore(
                                                   {
@@ -1457,20 +1459,7 @@ class _MentorFormWidgetState extends State<MentorFormWidget> {
                                                 ),
                                               );
 
-                                              await AdminRequestsRecord
-                                                  .collection
-                                                  .doc()
-                                                  .set(
-                                                      createAdminRequestsRecordData(
-                                                    userRef:
-                                                        currentUserReference,
-                                                    status:
-                                                        RequestState.PENDING,
-                                                    createdTime:
-                                                        getCurrentTimestamp,
-                                                  ));
-
-                                              context.goNamed('WaitPage');
+                                              context.goNamed('UnverifiedPage');
                                             },
                                             text: 'Register',
                                             options: FFButtonOptions(

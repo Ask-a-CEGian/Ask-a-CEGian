@@ -230,7 +230,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               44.0, 50.0, 44.0, 0.0),
                           child: Text(
-                            'FIND THE BEST ADVICE FOR YOUR CAREER',
+                            'EMPOWERING PATHS, BUILDING DREAMS',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
@@ -244,6 +244,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .labelMediumFamily),
+                                  lineHeight: 1.5,
                                 ),
                           ).animateOnPageLoad(
                               animationsMap['textOnPageLoadAnimation2']!),
@@ -267,7 +268,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget>
                               8.0, 0.0, 0.0, 16.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              context.pushNamed('AskingPage');
+                              context.pushNamed(
+                                'AskingPage',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: const TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                  ),
+                                },
+                              );
                             },
                             text: 'Get Started',
                             options: FFButtonOptions(

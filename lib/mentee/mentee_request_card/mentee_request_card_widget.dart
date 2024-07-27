@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/mentor/student_details/student_details_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:styled_divider/styled_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'mentee_request_card_model.dart';
@@ -84,17 +85,22 @@ class _MenteeRequestCardWidgetState extends State<MenteeRequestCardWidget> {
               width: double.infinity,
               height: 140.0,
               decoration: BoxDecoration(
-                color: const Color(0xFFE6E6E6),
                 boxShadow: const [
                   BoxShadow(
                     blurRadius: 5.0,
-                    color: Color(0x162D3A21),
+                    color: Color(0xFF202834),
                     offset: Offset(
                       0.0,
                       3.0,
                     ),
                   )
                 ],
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF044AB5), Color(0xFF939DAB)],
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(1.0, 0.34),
+                  end: AlignmentDirectional(-1.0, -0.34),
+                ),
                 borderRadius: BorderRadius.circular(12.0),
                 border: Border.all(
                   color: const Color(0xFF5C636B),
@@ -136,7 +142,7 @@ class _MenteeRequestCardWidgetState extends State<MenteeRequestCardWidget> {
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .titleMediumFamily,
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: Colors.black,
                                     letterSpacing: 0.0,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -149,10 +155,11 @@ class _MenteeRequestCardWidgetState extends State<MenteeRequestCardWidget> {
                       ],
                     ),
                   ),
-                  const Divider(
+                  const StyledDivider(
                     height: 12.0,
                     thickness: 1.0,
-                    color: Color(0xFF5C636B),
+                    color: Color(0xFFE6E6E6),
+                    lineStyle: DividerLineStyle.dashdotted,
                   ),
                   Padding(
                     padding:
@@ -165,7 +172,7 @@ class _MenteeRequestCardWidgetState extends State<MenteeRequestCardWidget> {
                           onPressed: () async {
                             await showModalBottomSheet(
                               isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
+                              backgroundColor: Colors.white,
                               enableDrag: false,
                               context: context,
                               builder: (context) {

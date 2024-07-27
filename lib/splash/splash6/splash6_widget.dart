@@ -29,7 +29,7 @@ class _Splash6WidgetState extends State<Splash6Widget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.pushNamed('WelcomePage');
+      context.pushNamed('WelcomePagecopy');
     });
 
     animationsMap.addAll({
@@ -125,7 +125,7 @@ class _Splash6WidgetState extends State<Splash6Widget>
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('WelcomePage');
+                          context.pushNamed('WelcomePagecopy');
                         },
                         child: Container(
                           width: 1123.71,

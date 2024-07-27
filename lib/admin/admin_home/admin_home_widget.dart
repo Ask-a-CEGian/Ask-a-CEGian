@@ -46,7 +46,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
         onWillPop: () async => false,
         child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFF0A515C),
           drawer: SizedBox(
             width: 370.0,
             child: Drawer(
@@ -58,13 +58,55 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
               ),
             ),
           ),
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            title: Container(
+              decoration: const BoxDecoration(),
+              child: Stack(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                        child: Text(
+                          'Overview',
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .headlineMediumFamily,
+                                color: Colors.black,
+                                fontSize: 26.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .headlineMediumFamily),
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actions: const [],
+            centerTitle: true,
+            elevation: 2.0,
+          ),
           body: Align(
             alignment: const AlignmentDirectional(0.0, 0.0),
             child: Container(
               constraints: const BoxConstraints(
                 maxWidth: 500.0,
               ),
-              decoration: const BoxDecoration(),
+              decoration: const BoxDecoration(
+                color: Color(0xFF0A515C),
+              ),
               child: Stack(
                 children: [
                   Column(
@@ -78,9 +120,8 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
                             children: [
                               Container(
                                 width: 400.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF0A515C),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
@@ -92,34 +133,6 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Overview',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  color: Colors.black,
-                                                  fontSize: 24.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
-                                          ),
-                                        ],
-                                      ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
@@ -219,7 +232,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
                                                                   usersRecord
                                                                       .where(
                                                             'role',
-                                                            isEqualTo: 'Mentee',
+                                                            isEqualTo: 'Mentor',
                                                           ),
                                                         ),
                                                         builder: (context,
@@ -444,7 +457,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget> {
                                                                   usersRecord
                                                                       .where(
                                                             'role',
-                                                            isEqualTo: 'Mentor',
+                                                            isEqualTo: 'Mentee',
                                                           ),
                                                         ),
                                                         builder: (context,

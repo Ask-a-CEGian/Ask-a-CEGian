@@ -18,9 +18,11 @@ class ChatPageWidget extends StatefulWidget {
   const ChatPageWidget({
     super.key,
     required this.receiveChat,
-  });
+    bool? suspended,
+  }) : suspended = suspended ?? false;
 
   final DocumentReference? receiveChat;
+  final bool suspended;
 
   @override
   State<ChatPageWidget> createState() => _ChatPageWidgetState();
@@ -424,176 +426,239 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 8.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.textController,
-                              focusNode: _model.textFieldFocusNode,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                '_model.textController',
-                                const Duration(milliseconds: 0),
-                                () => setState(() {}),
+                  Builder(
+                    builder: (context) {
+                      if (!widget.suspended) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 15.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: TextFormField(
+                                        controller: _model.textController,
+                                        focusNode: _model.textFieldFocusNode,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.textController',
+                                          const Duration(milliseconds: 0),
+                                          () => setState(() {}),
+                                        ),
+                                        autofocus: false,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          hintText: 'Type your message here...',
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMediumFamily),
+                                              ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Colors.white,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Colors.black,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Colors.black,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: Colors.black,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                        validator: _model
+                                            .textControllerValidator
+                                            .asValidator(context),
+                                      ),
+                                    ),
+                                  ),
+                                  FlutterFlowIconButton(
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    borderRadius: 20.0,
+                                    borderWidth: 1.0,
+                                    buttonSize: 40.0,
+                                    fillColor: const Color(0xFFE6E6E6),
+                                    icon: const FaIcon(
+                                      FontAwesomeIcons.calendarAlt,
+                                      color: Colors.black,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: MeetingCreationWidget(
+                                                chatRef: widget.receiveChat!,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                  ),
+                                  FlutterFlowIconButton(
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    borderRadius: 20.0,
+                                    borderWidth: 1.0,
+                                    buttonSize: 40.0,
+                                    fillColor: const Color(0xFF079507),
+                                    disabledColor: const Color(0xFF079507),
+                                    disabledIconColor: Colors.black,
+                                    icon: const Icon(
+                                      Icons.send,
+                                      color: Colors.black,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: (_model.textController.text == '')
+                                        ? null
+                                        : () async {
+                                            await ChatMessagesRecord.createDoc(
+                                                    widget.receiveChat!)
+                                                .set(
+                                                    createChatMessagesRecordData(
+                                              message:
+                                                  _model.textController.text,
+                                              timeStamp: getCurrentTimestamp,
+                                              senderRef: currentUserReference,
+                                              senderName: currentUserUid,
+                                            ));
+
+                                            await widget.receiveChat!.update({
+                                              ...createChatsRecordData(
+                                                lastMessage:
+                                                    _model.textController.text,
+                                                lastMessageTime:
+                                                    getCurrentTimestamp,
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'last_message_seen_by':
+                                                      FieldValue.delete(),
+                                                },
+                                              ),
+                                            });
+
+                                            await widget.receiveChat!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'last_message_seen_by':
+                                                      FieldValue.arrayUnion([
+                                                    currentUserReference
+                                                  ]),
+                                                },
+                                              ),
+                                            });
+                                            setState(() {
+                                              _model.textController?.clear();
+                                            });
+                                          },
+                                  ),
+                                ]
+                                    .divide(const SizedBox(width: 10.0))
+                                    .addToEnd(const SizedBox(width: 10.0)),
                               ),
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Type your message here...',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 15.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Can\'t message as the user is suspended',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
-                                          .labelMediumFamily,
+                                          .bodyMediumFamily,
+                                      color: Colors.white,
+                                      fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily),
+                                                  .bodyMediumFamily),
                                     ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.white,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Colors.black,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily,
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodyMediumFamily),
-                                  ),
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
-                            ),
+                            ]
+                                .divide(const SizedBox(width: 10.0))
+                                .addToEnd(const SizedBox(width: 10.0)),
                           ),
-                        ),
-                        FlutterFlowIconButton(
-                          borderColor: FlutterFlowTheme.of(context).primary,
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          fillColor: const Color(0xFFE6E6E6),
-                          icon: const FaIcon(
-                            FontAwesomeIcons.calendarAlt,
-                            color: Colors.black,
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              context: context,
-                              builder: (context) {
-                                return GestureDetector(
-                                  onTap: () =>
-                                      _model.unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
-                                  child: Padding(
-                                    padding: MediaQuery.viewInsetsOf(context),
-                                    child: MeetingCreationWidget(
-                                      chatRef: widget.receiveChat!,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ).then((value) => safeSetState(() {}));
-                          },
-                        ),
-                        FlutterFlowIconButton(
-                          borderColor: FlutterFlowTheme.of(context).primary,
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          fillColor: const Color(0xFF079507),
-                          disabledColor: const Color(0xFF079507),
-                          disabledIconColor: Colors.black,
-                          icon: const Icon(
-                            Icons.send,
-                            color: Colors.black,
-                            size: 24.0,
-                          ),
-                          onPressed: (_model.textController.text == '')
-                              ? null
-                              : () async {
-                                  await ChatMessagesRecord.createDoc(
-                                          widget.receiveChat!)
-                                      .set(createChatMessagesRecordData(
-                                    message: _model.textController.text,
-                                    timeStamp: getCurrentTimestamp,
-                                    senderRef: currentUserReference,
-                                    senderName: currentUserUid,
-                                  ));
-
-                                  await widget.receiveChat!.update({
-                                    ...createChatsRecordData(
-                                      lastMessage: _model.textController.text,
-                                      lastMessageTime: getCurrentTimestamp,
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'last_message_seen_by':
-                                            FieldValue.delete(),
-                                      },
-                                    ),
-                                  });
-
-                                  await widget.receiveChat!.update({
-                                    ...mapToFirestore(
-                                      {
-                                        'last_message_seen_by':
-                                            FieldValue.arrayUnion(
-                                                [currentUserReference]),
-                                      },
-                                    ),
-                                  });
-                                  setState(() {
-                                    _model.textController?.clear();
-                                  });
-                                },
-                        ),
-                      ]
-                          .divide(const SizedBox(width: 10.0))
-                          .addToEnd(const SizedBox(width: 10.0)),
-                    ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

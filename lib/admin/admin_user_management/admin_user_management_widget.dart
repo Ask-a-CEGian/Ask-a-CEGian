@@ -2,6 +2,7 @@ import '/admin/admin_settings/admin_settings_widget.dart';
 import '/admin/admin_user_profile/admin_user_profile_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/empty_list_widgets/no_users_found/no_users_found_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -54,7 +55,7 @@ class _AdminUserManagementWidgetState extends State<AdminUserManagementWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF0A515C),
         drawer: Drawer(
           elevation: 16.0,
           child: wrapWithModel(
@@ -63,189 +64,211 @@ class _AdminUserManagementWidgetState extends State<AdminUserManagementWidget> {
             child: const AdminSettingsWidget(),
           ),
         ),
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF033FA4),
+          automaticallyImplyLeading: false,
+          leading: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 20.0,
+                  borderWidth: 1.0,
+                  buttonSize: 40.0,
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    context.safePop();
+                  },
+                ),
+              ),
+            ],
+          ),
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                '${widget.role}s',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                      useGoogleFonts: GoogleFonts.asMap().containsKey('Inter'),
+                    ),
+              ),
+            ],
+          ),
+          actions: const [],
+          centerTitle: false,
+          elevation: 2.0,
+        ),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, -0.83),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 20.0,
-                              borderWidth: 1.0,
-                              buttonSize: 40.0,
-                              icon: const Icon(
-                                Icons.chevron_left_sharp,
-                                color: Color(0xFFFF0000),
-                                size: 24.0,
-                              ),
-                              onPressed: () async {
-                                context.safePop();
-                              },
-                            ),
-                          ),
-                          Text(
-                            '${widget.role}s',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts:
-                                      GoogleFonts.asMap().containsKey('Inter'),
-                                ),
-                          ),
-                        ],
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 80.0),
+              child: SingleChildScrollView(
+                primary: false,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF0A515C),
                       ),
-                    ),
-                  ),
-                  if (_model.showFullList)
-                    StreamBuilder<List<UsersRecord>>(
-                      stream: queryUsersRecord(
-                        queryBuilder: (usersRecord) => usersRecord
-                            .where(
-                              'role',
-                              isEqualTo: widget.role,
-                            )
-                            .orderBy('display_name'),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        List<UsersRecord> fullListUsersRecordList = snapshot
-                            .data!
-                            .where((u) => u.uid != currentUserUid)
-                            .toList();
-                        if (fullListUsersRecordList.isEmpty) {
-                          return const SizedBox(
-                            width: 300.0,
-                            height: 400.0,
-                            child: NoUsersFoundWidget(),
-                          );
-                        }
-
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: fullListUsersRecordList.length,
-                          itemBuilder: (context, fullListIndex) {
-                            final fullListUsersRecord =
-                                fullListUsersRecordList[fullListIndex];
-                            return Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 20.0, 15.0),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                    minWidth: 500.0,
-                                    maxWidth: 500.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFECDDD8),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(
-                                      color: const Color(0xFFECDDD8),
-                                      width: 2.0,
+                      child: Visibility(
+                        visible: _model.showFullList,
+                        child: StreamBuilder<List<UsersRecord>>(
+                          stream: queryUsersRecord(
+                            queryBuilder: (usersRecord) => usersRecord
+                                .where(
+                                  'role',
+                                  isEqualTo: widget.role,
+                                )
+                                .where(
+                                  'user_state',
+                                  isEqualTo: UserState.VERIFIED.serialize(),
+                                )
+                                .orderBy('display_name'),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
                                     ),
                                   ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
+                                ),
+                              );
+                            }
+                            List<UsersRecord> fullListUsersRecordList = snapshot
+                                .data!
+                                .where((u) => u.uid != currentUserUid)
+                                .toList();
+                            if (fullListUsersRecordList.isEmpty) {
+                              return const SizedBox(
+                                width: 300.0,
+                                height: 400.0,
+                                child: NoUsersFoundWidget(),
+                              );
+                            }
+
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: fullListUsersRecordList.length,
+                              itemBuilder: (context, fullListIndex) {
+                                final fullListUsersRecord =
+                                    fullListUsersRecordList[fullListIndex];
+                                return Align(
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 0.0, 20.0, 15.0),
+                                    child: Container(
+                                      constraints: const BoxConstraints(
+                                        minWidth: 500.0,
+                                        maxWidth: 500.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFECDDD8),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        border: Border.all(
+                                          color: const Color(0xFFECDDD8),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 10.0, 0.0, 10.0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                fullListUsersRecord.photoUrl,
-                                                width: 80.0,
-                                                height: 80.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        width: 130.0,
-                                        height: 100.0,
-                                        constraints: const BoxConstraints(
-                                          maxWidth: 500.0,
-                                        ),
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      10.0, 0.0, 0.0, 10.0),
-                                              child: Text(
-                                                fullListUsersRecord.displayName,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color: Colors.black,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      useGoogleFonts:
-                                                          GoogleFonts.asMap()
-                                                              .containsKey(
-                                                                  'Inter'),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 0.0, 10.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.network(
+                                                    valueOrDefault<String>(
+                                                      fullListUsersRecord
+                                                          .photoUrl,
+                                                      'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/ask-a-cegian-6q7f9f/assets/3l034mi77mah/Group_(1).svg',
                                                     ),
+                                                    width: 80.0,
+                                                    height: 80.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: 130.0,
+                                            height: 100.0,
+                                            constraints: const BoxConstraints(
+                                              maxWidth: 500.0,
                                             ),
-                                            Text(
-                                              fullListUsersRecord.email,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                            decoration: const BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 0.0, 10.0),
+                                                  child: Text(
+                                                    fullListUsersRecord
+                                                        .displayName,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: Colors.black,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts:
+                                                              GoogleFonts
+                                                                      .asMap()
+                                                                  .containsKey(
+                                                                      'Inter'),
+                                                        ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  fullListUsersRecord.email,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily:
@@ -261,96 +284,102 @@ class _AdminUserManagementWidgetState extends State<AdminUserManagementWidget> {
                                                                         context)
                                                                     .bodyMediumFamily),
                                                       ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Builder(
-                                              builder: (context) => Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 40.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderRadius: 35.0,
-                                                  buttonSize: 35.0,
-                                                  icon: const FaIcon(
-                                                    FontAwesomeIcons.ellipsisV,
-                                                    color: Colors.black,
-                                                    size: 20.0,
-                                                  ),
-                                                  onPressed: () async {
-                                                    showAlignedDialog(
-                                                      context: context,
-                                                      isGlobal: false,
-                                                      avoidOverflow: true,
-                                                      targetAnchor:
-                                                          const AlignmentDirectional(
-                                                                  1.0, 5.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      followerAnchor:
-                                                          const AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      builder: (dialogContext) {
-                                                        return Material(
-                                                          color: Colors
-                                                              .transparent,
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
-                                                            child:
-                                                                AdminUserProfileWidget(
-                                                              userDoc:
-                                                                  fullListUsersRecord,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        setState(() {}));
-                                                  },
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Builder(
+                                                  builder: (context) => Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 40.0),
+                                                    child:
+                                                        FlutterFlowIconButton(
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderRadius: 35.0,
+                                                      buttonSize: 35.0,
+                                                      icon: const FaIcon(
+                                                        FontAwesomeIcons
+                                                            .ellipsisV,
+                                                        color: Colors.black,
+                                                        size: 20.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        showAlignedDialog(
+                                                          context: context,
+                                                          isGlobal: false,
+                                                          avoidOverflow: true,
+                                                          targetAnchor:
+                                                              const AlignmentDirectional(
+                                                                      1.0, 5.0)
+                                                                  .resolve(
+                                                                      Directionality.of(
+                                                                          context)),
+                                                          followerAnchor:
+                                                              const AlignmentDirectional(
+                                                                      0.0, 0.0)
+                                                                  .resolve(
+                                                                      Directionality.of(
+                                                                          context)),
+                                                          builder:
+                                                              (dialogContext) {
+                                                            return Material(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child:
+                                                                    AdminUserProfileWidget(
+                                                                  userDoc:
+                                                                      fullListUsersRecord,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            setState(() {}));
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ].divide(const SizedBox(width: 20.0)),
                                       ),
-                                    ].divide(const SizedBox(width: 20.0)),
+                                    ),
                                   ),
-                                ),
-                              ),
+                                );
+                              },
                             );
                           },
-                        );
-                      },
+                        ),
+                      ),
                     ),
-                ]
-                    .divide(const SizedBox(height: 30.0))
-                    .addToStart(const SizedBox(height: 20.0)),
+                  ]
+                      .divide(const SizedBox(height: 30.0))
+                      .addToStart(const SizedBox(height: 20.0)),
+                ),
               ),
             ),
             Column(

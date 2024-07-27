@@ -77,8 +77,8 @@ class _MentorRequestsWidgetState extends State<MentorRequestsWidget> {
                     color: Colors.white,
                     size: 30.0,
                   ),
-                  onPressed: () {
-                    print('IconButton pressed ...');
+                  onPressed: () async {
+                    context.safePop();
                   },
                 ),
               ),
@@ -134,66 +134,70 @@ class _MentorRequestsWidgetState extends State<MentorRequestsWidget> {
                             ),
                       ),
                     ),
-                    StreamBuilder<List<RequestsRecord>>(
-                      stream: queryRequestsRecord(
-                        queryBuilder: (requestsRecord) => requestsRecord
-                            .where(
-                              'mentor_ref',
-                              isEqualTo: currentUserReference,
-                            )
-                            .where(
-                              'request_state',
-                              isEqualTo: RequestState.PENDING.serialize(),
-                            )
-                            .orderBy('created_time', descending: true),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                      child: StreamBuilder<List<RequestsRecord>>(
+                        stream: queryRequestsRecord(
+                          queryBuilder: (requestsRecord) => requestsRecord
+                              .where(
+                                'mentor_ref',
+                                isEqualTo: currentUserReference,
+                              )
+                              .where(
+                                'request_state',
+                                isEqualTo: RequestState.PENDING.serialize(),
+                              )
+                              .orderBy('created_time', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                        List<RequestsRecord> listViewRequestsRecordList =
-                            snapshot.data!;
-                        if (listViewRequestsRecordList.isEmpty) {
-                          return const Center(
-                            child: SizedBox(
-                              width: 350.0,
-                              height: 400.0,
-                              child: NoRequestsFoundWidget(
-                                message: 'No Pending Requests',
-                              ),
-                            ),
-                          );
-                        }
-
-                        return ListView.separated(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewRequestsRecordList.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 20.0),
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewRequestsRecord =
-                                listViewRequestsRecordList[listViewIndex];
-                            return MenteeRequestCardWidget(
-                              key: Key(
-                                  'Keyvt5_${listViewIndex}_of_${listViewRequestsRecordList.length}'),
-                              menteeRef: listViewRequestsRecord.menteeRef!,
-                              requestRef: listViewRequestsRecord.reference,
                             );
-                          },
-                        );
-                      },
+                          }
+                          List<RequestsRecord> listViewRequestsRecordList =
+                              snapshot.data!;
+                          if (listViewRequestsRecordList.isEmpty) {
+                            return const Center(
+                              child: SizedBox(
+                                width: 350.0,
+                                height: 400.0,
+                                child: NoRequestsFoundWidget(
+                                  message: 'No Pending Requests',
+                                ),
+                              ),
+                            );
+                          }
+
+                          return ListView.separated(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewRequestsRecordList.length,
+                            separatorBuilder: (_, __) => const SizedBox(height: 20.0),
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewRequestsRecord =
+                                  listViewRequestsRecordList[listViewIndex];
+                              return MenteeRequestCardWidget(
+                                key: Key(
+                                    'Keyvt5_${listViewIndex}_of_${listViewRequestsRecordList.length}'),
+                                menteeRef: listViewRequestsRecord.menteeRef!,
+                                requestRef: listViewRequestsRecord.reference,
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),

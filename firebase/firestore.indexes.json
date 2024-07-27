@@ -45,6 +45,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "user_state",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "display_name",
           "order": "ASCENDING"
         }
@@ -106,6 +110,20 @@
         },
         {
           "fieldPath": "receiver_state",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "meetings",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "accepted_users",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "start_time",
           "order": "ASCENDING"
         }
       ]

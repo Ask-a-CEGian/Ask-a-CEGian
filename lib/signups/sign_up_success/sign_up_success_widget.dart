@@ -64,7 +64,7 @@ class _SignUpSuccessWidgetState extends State<SignUpSuccessWidget>
         onWillPop: () async => false,
         child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFFFFEEB9),
           body: SafeArea(
             top: true,
             child: Align(
@@ -81,7 +81,7 @@ class _SignUpSuccessWidgetState extends State<SignUpSuccessWidget>
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: MediaQuery.sizeOf(context).height * 0.4,
+                        height: MediaQuery.sizeOf(context).height * 0.35,
                         constraints: const BoxConstraints(
                           maxWidth: 500.0,
                         ),
@@ -97,7 +97,7 @@ class _SignUpSuccessWidgetState extends State<SignUpSuccessWidget>
                                 child: SvgPicture.asset(
                                   'assets/images/5423351_Mobile_login_1_(1).svg',
                                   width: 387.0,
-                                  height: 426.0,
+                                  height: 394.0,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -110,7 +110,7 @@ class _SignUpSuccessWidgetState extends State<SignUpSuccessWidget>
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: MediaQuery.sizeOf(context).height * 0.55,
+                        height: MediaQuery.sizeOf(context).height * 0.5,
                         constraints: const BoxConstraints(
                           maxWidth: 500.0,
                         ),

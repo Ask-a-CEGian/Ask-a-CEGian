@@ -47,7 +47,6 @@ class _NoRequestsFoundWidgetState extends State<NoRequestsFoundWidget> {
       width: MediaQuery.sizeOf(context).width * 0.3,
       height: 164.0,
       decoration: const BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -62,7 +61,7 @@ class _NoRequestsFoundWidgetState extends State<NoRequestsFoundWidget> {
           children: [
             const Divider(
               thickness: 1.0,
-              color: Color(0xFFE6E6E6),
+              color: Colors.black,
             ),
             Expanded(
               child: Padding(
@@ -82,7 +81,7 @@ class _NoRequestsFoundWidgetState extends State<NoRequestsFoundWidget> {
                           children: [
                             Icon(
                               Icons.search_off_rounded,
-                              color: Color(0xFF1C344F),
+                              color: Colors.black,
                               size: 50.0,
                             ),
                           ],
@@ -117,7 +116,7 @@ class _NoRequestsFoundWidgetState extends State<NoRequestsFoundWidget> {
                       ),
                       const Divider(
                         thickness: 1.0,
-                        color: Color(0xFFE6E6E6),
+                        color: Colors.black,
                       ),
                     ],
                   ),

@@ -273,9 +273,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           ),
         ),
         FFRoute(
-          name: 'WaitPage',
-          path: '/waitPage',
-          builder: (context, params) => const WaitPageWidget(),
+          name: 'UnverifiedPage',
+          path: '/unverifiedPage',
+          builder: (context, params) => const UnverifiedPageWidget(),
         ),
         FFRoute(
           name: 'AdminHome',
@@ -291,6 +291,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
               ParamType.DocumentReference,
               isList: false,
               collectionNamePath: ['chats'],
+            ),
+            suspended: params.getParam(
+              'suspended',
+              ParamType.bool,
             ),
           ),
         ),
@@ -318,9 +322,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           ),
         ),
         FFRoute(
-          name: 'WelcomePage',
-          path: '/welcomePage',
-          builder: (context, params) => const WelcomePageWidget(),
+          name: 'WelcomePagecopy',
+          path: '/welcomePagecopy',
+          builder: (context, params) => const WelcomePagecopyWidget(),
         ),
         FFRoute(
           name: 'MeetingDetailsCopy',
@@ -341,11 +345,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           ),
         ),
         FFRoute(
-          name: 'MenteeSearch2',
-          path: '/menteeSearch2',
-          builder: (context, params) => const MenteeSearch2Widget(),
-        ),
-        FFRoute(
           name: 'MenteeSearch',
           path: '/menteeSearch',
           builder: (context, params) => const MenteeSearchWidget(),
@@ -356,9 +355,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const ChatMainMenteeWidget(),
         ),
         FFRoute(
-          name: 'ConnectedMentees',
-          path: '/connectedMentees',
-          builder: (context, params) => const ConnectedMenteesWidget(),
+          name: 'WelcomePage',
+          path: '/welcomePage',
+          builder: (context, params) => const WelcomePageWidget(),
+        ),
+        FFRoute(
+          name: 'SuspendPage',
+          path: '/suspendPage',
+          builder: (context, params) => const SuspendPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

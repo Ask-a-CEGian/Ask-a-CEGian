@@ -1,10 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,28 +31,42 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget>
     _model = createModel(context, () => WelcomePageModel());
 
     animationsMap.addAll({
-      'imageOnPageLoadAnimation': AnimationInfo(
+      'containerOnPageLoadAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
           FadeEffect(
             curve: Curves.easeInOut,
-            delay: 200.0.ms,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: const Offset(3.0, 3.0),
+            end: const Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 300.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 300.0.ms,
             duration: 300.0.ms,
             begin: 0.0,
             end: 1.0,
           ),
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 200.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.0, 20.0),
-            end: const Offset(0.0, 0.0),
-          ),
           ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 200.0.ms,
+            curve: Curves.bounceOut,
+            delay: 300.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
+            begin: const Offset(0.6, 0.6),
             end: const Offset(1.0, 1.0),
           ),
         ],
@@ -61,107 +74,59 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget>
       'textOnPageLoadAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
-          VisibilityEffect(duration: 200.ms),
+          VisibilityEffect(duration: 350.ms),
           FadeEffect(
             curve: Curves.easeInOut,
-            delay: 200.0.ms,
-            duration: 300.0.ms,
+            delay: 350.0.ms,
+            duration: 400.0.ms,
             begin: 0.0,
             end: 1.0,
           ),
           MoveEffect(
             curve: Curves.easeInOut,
-            delay: 200.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.0, 20.0),
+            delay: 350.0.ms,
+            duration: 400.0.ms,
+            begin: const Offset(0.0, 30.0),
             end: const Offset(0.0, 0.0),
-          ),
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 200.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
-            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
       'textOnPageLoadAnimation2': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
-          VisibilityEffect(duration: 300.ms),
+          VisibilityEffect(duration: 400.ms),
           FadeEffect(
             curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
             begin: 0.0,
             end: 1.0,
           ),
           MoveEffect(
             curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.0, 20.0),
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: const Offset(0.0, 30.0),
             end: const Offset(0.0, 0.0),
-          ),
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
-            end: const Offset(1.0, 1.0),
           ),
         ],
       ),
-      'textOnPageLoadAnimation3': AnimationInfo(
+      'rowOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           VisibilityEffect(duration: 300.ms),
           FadeEffect(
             curve: Curves.easeInOut,
             delay: 300.0.ms,
-            duration: 300.0.ms,
+            duration: 600.0.ms,
             begin: 0.0,
             end: 1.0,
           ),
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.0, 20.0),
-            end: const Offset(0.0, 0.0),
-          ),
           ScaleEffect(
-            curve: Curves.easeInOut,
+            curve: Curves.bounceOut,
             delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
-            end: const Offset(1.0, 1.0),
-          ),
-        ],
-      ),
-      'textOnPageLoadAnimation4': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          VisibilityEffect(duration: 300.ms),
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.0, 20.0),
-            end: const Offset(0.0, 0.0),
-          ),
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 300.0.ms,
-            duration: 300.0.ms,
-            begin: const Offset(0.9, 0.9),
+            duration: 600.0.ms,
+            begin: const Offset(0.6, 0.6),
             end: const Offset(1.0, 1.0),
           ),
         ],
@@ -196,271 +161,161 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget>
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Colors.white,
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ClipRRect(
-              child: Container(
-                width: double.infinity,
-                height: 352.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'assets/images/AskaCEGian-logo_2.jpg',
-                    width: 300.0,
-                    height: 200.0,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation']!),
-              ),
-            ),
-            Expanded(
-              child: Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
-                child: Container(
-                  width: double.infinity,
-                  constraints: const BoxConstraints(
-                    maxWidth: 670.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: Column(
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: const Color(0xFFFFF5DC),
+          body: Stack(
+            children: [
+              Stack(
+                children: [
+                  Column(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
-                        child: SizedBox(
+                      Expanded(
+                        child: Container(
                           width: double.infinity,
-                          height: 205.0,
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 50.0),
-                                child: PageView(
-                                  controller: _model.pageViewController ??=
-                                      PageController(initialPage: 0),
-                                  scrollDirection: Axis.horizontal,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          48.0, 0.0, 48.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'An initiative by CEGAANA',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .displaySmall
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .displaySmallFamily,
-                                                  color: Colors.black,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .displaySmallFamily),
-                                                ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'textOnPageLoadAnimation1']!),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: Text(
-                                              'Ready to learn, grow, and succeed? ',
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelLargeFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily),
-                                                      ),
-                                            ).animateOnPageLoad(animationsMap[
-                                                'textOnPageLoadAnimation2']!),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          48.0, 0.0, 48.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: Text(
-                                              'At CEGAANA, we believe in the power of mentorship to transform lives and careers',
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelLargeFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily),
-                                                      ),
-                                            ).animateOnPageLoad(animationsMap[
-                                                'textOnPageLoadAnimation3']!),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          48.0, 0.0, 48.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: Text(
-                                              'Start a conversation, set goals, and work together to achieve success',
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelLargeFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily),
-                                                      ),
-                                            ).animateOnPageLoad(animationsMap[
-                                                'textOnPageLoadAnimation4']!),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).primary,
+                                const Color(0xFF1AA794),
+                                const Color(0xFF1A3EA7),
+                                const Color(0xFF289AFF)
+                              ],
+                              stops: const [0.0, 0.5, 1.0, 1.0],
+                              begin: const AlignmentDirectional(-1.0, -1.0),
+                              end: const AlignmentDirectional(1.0, 1.0),
+                            ),
+                          ),
+                          child: Container(
+                            width: 100.0,
+                            height: double.infinity,
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0x00FFFFFF),
+                                  Color(0xFFFFF5DC),
+                                  Color(0xFF0C3152),
+                                  Colors.blue
+                                ],
+                                stops: [0.0, 1.0, 1.0, 1.0],
+                                begin: AlignmentDirectional(0.0, -1.0),
+                                end: AlignmentDirectional(0, 1.0),
                               ),
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 10.0),
-                                  child:
-                                      smooth_page_indicator.SmoothPageIndicator(
-                                    controller: _model.pageViewController ??=
-                                        PageController(initialPage: 0),
-                                    count: 3,
-                                    axisDirection: Axis.horizontal,
-                                    onDotClicked: (i) async {
-                                      await _model.pageViewController!
-                                          .animateToPage(
-                                        i,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                      setState(() {});
-                                    },
-                                    effect: smooth_page_indicator
-                                        .ExpandingDotsEffect(
-                                      expansionFactor: 2.0,
-                                      spacing: 8.0,
-                                      radius: 16.0,
-                                      dotWidth: 6.0,
-                                      dotHeight: 6.0,
-                                      dotColor: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      activeDotColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      paintStyle: PaintingStyle.fill,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 230.0,
+                                  height: 230.0,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFF7E1D3),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 100.0,
+                                      height: 100.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/cegaanalogos.jpeg',
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'containerOnPageLoadAnimation2']!),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 44.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Welcome!',
+                                    style: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .displaySmallFamily,
+                                          color: const Color(0xFF203772),
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .displaySmallFamily),
+                                        ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'textOnPageLoadAnimation1']!),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      44.0, 50.0, 44.0, 0.0),
+                                  child: Text(
+                                    'Connecting Potential with\n Experience Together, \nWe Achieve More!',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMediumFamily,
+                                          color: Colors.black,
+                                          fontSize: 22.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w800,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMediumFamily),
+                                        ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'textOnPageLoadAnimation2']!),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['containerOnPageLoadAnimation1']!),
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 10.0, 0.0),
-                            child: FFButtonWidget(
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 24.0, 16.0, 44.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FFButtonWidget(
                               onPressed: () async {
                                 if (valueOrDefault(
                                         currentUserDocument?.role, '') ==
-                                    'Mentor') {
-                                  if (valueOrDefault<bool>(
-                                      currentUserDocument?.adminVerified,
-                                      false)) {
-                                    context.pushNamed('MentorHome');
-                                  } else {
-                                    context.pushNamed('WaitPage');
-                                  }
-                                } else if (valueOrDefault(
-                                        currentUserDocument?.role, '') ==
-                                    'Mentee') {
-                                  if (valueOrDefault<bool>(
-                                      currentUserDocument?.adminVerified,
-                                      false)) {
-                                    context.pushNamed('MenteeHome');
-                                  } else {
-                                    context.pushNamed('WaitPage');
-                                  }
-                                } else {
+                                    'Admin') {
                                   context.goNamed('AdminHome');
+                                } else if (currentUserDocument?.userState ==
+                                    UserState.UNVERIFIED) {
+                                  context.pushNamed('UnverifiedPage');
+                                } else if (currentUserDocument?.userState ==
+                                    UserState.SUSPENDED) {
+                                  context.pushNamed('SuspendPage');
+                                } else {
+                                  if (valueOrDefault(
+                                          currentUserDocument?.role, '') ==
+                                      'Mentor') {
+                                    context.goNamed('MentorHome');
+                                  } else {
+                                    context.goNamed('MenteeHome');
+                                  }
                                 }
                               },
-                              text: 'Next',
+                              text: 'Get Started',
                               options: FFButtonOptions(
                                 width: 280.0,
                                 height: 60.0,
@@ -468,13 +323,14 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget>
                                     24.0, 0.0, 24.0, 0.0),
                                 iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: const Color(0xFFEA4335),
+                                color: const Color(0xFF0B7697),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .titleSmallFamily,
                                       color: Colors.white,
+                                      fontSize: 20.0,
                                       letterSpacing: 0.0,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
@@ -490,15 +346,16 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget>
                               ),
                             ).animateOnPageLoad(
                                 animationsMap['buttonOnPageLoadAnimation']!),
-                          ),
-                        ],
+                          ],
+                        ).animateOnPageLoad(
+                            animationsMap['rowOnPageLoadAnimation']!),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

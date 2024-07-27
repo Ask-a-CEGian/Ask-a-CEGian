@@ -942,7 +942,7 @@ class _MentorProfileWidgetState extends State<MentorProfileWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      context.safePop();
+                                      context.goNamed('MentorHome');
                                     },
                                     text: '     Back',
                                     options: FFButtonOptions(
@@ -993,7 +993,7 @@ class _MentorProfileWidgetState extends State<MentorProfileWidget> {
                                     .override(
                                       fontFamily: 'Inter',
                                       color: const Color(0xFF0B1454),
-                                      fontSize: 24.0,
+                                      fontSize: 20.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       useGoogleFonts: GoogleFonts.asMap()

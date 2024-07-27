@@ -61,103 +61,104 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
-                child: Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: 500.0,
-                  ),
-                  decoration: const BoxDecoration(),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: MediaQuery.sizeOf(context).height * 0.35,
-                          constraints: const BoxConstraints(
-                            maxWidth: 500.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, -1.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/5423351_Mobile_login_1.svg',
-                                    width: 387.0,
-                                    height: 400.0,
-                                    fit: BoxFit.cover,
-                                    alignment: const Alignment(0.0, -1.0),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 500.0,
-                          ),
-                          decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 4.0,
-                                color: Color(0xFFFFEEB9),
-                                offset: Offset(
-                                  0.0,
-                                  2.0,
-                                ),
-                              )
-                            ],
-                          ),
-                          child: Form(
-                            key: _model.formKey,
-                            autovalidateMode: AutovalidateMode.disabled,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: 500.0,
+                    ),
+                    decoration: const BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Container(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: MediaQuery.sizeOf(context).height * 0.35,
+                            constraints: const BoxConstraints(
+                              maxWidth: 500.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
                             child: Stack(
                               children: [
-                                Container(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 1.75,
-                                  constraints: const BoxConstraints(
-                                    maxWidth: 500.0,
-                                  ),
-                                  decoration: const BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 36.0,
-                                        color: Color(0xFFFFEBB9),
-                                        offset: Offset(
-                                          0.0,
-                                          2.0,
-                                        ),
-                                        spreadRadius: 35.0,
-                                      )
-                                    ],
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFFFFEEB9),
-                                        Color(0xFFFFEBB9)
-                                      ],
-                                      stops: [0.0, 1.0],
-                                      begin: AlignmentDirectional(0.0, -1.0),
-                                      end: AlignmentDirectional(0, 1.0),
+                                Align(
+                                  alignment: const AlignmentDirectional(0.0, -1.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: SvgPicture.asset(
+                                      'assets/images/5423351_Mobile_login_1.svg',
+                                      width: 387.0,
+                                      height: 400.0,
+                                      fit: BoxFit.cover,
+                                      alignment: const Alignment(0.0, -1.0),
                                     ),
                                   ),
-                                  child: SingleChildScrollView(
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Container(
+                            constraints: const BoxConstraints(
+                              maxWidth: 500.0,
+                            ),
+                            decoration: const BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 4.0,
+                                  color: Color(0xFFFFEEB9),
+                                  offset: Offset(
+                                    0.0,
+                                    2.0,
+                                  ),
+                                )
+                              ],
+                            ),
+                            child: Form(
+                              key: _model.formKey,
+                              autovalidateMode: AutovalidateMode.disabled,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: MediaQuery.sizeOf(context).height *
+                                        1.75,
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 500.0,
+                                    ),
+                                    decoration: const BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 36.0,
+                                          color: Color(0xFFFFEBB9),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
+                                          spreadRadius: 35.0,
+                                        )
+                                      ],
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xFFFFEEB9),
+                                          Color(0xFFFFEBB9)
+                                        ],
+                                        stops: [0.0, 1.0],
+                                        begin: AlignmentDirectional(0.0, -1.0),
+                                        end: AlignmentDirectional(0, 1.0),
+                                      ),
+                                    ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -207,7 +208,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                       .signupEmailTextController,
                                                   focusNode: _model
                                                       .signupEmailFocusNode,
-                                                  autofocus: false,
+                                                  autofocus: true,
                                                   autofillHints: const [
                                                     AutofillHints.email
                                                   ],
@@ -306,7 +307,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                       ),
                                                   keyboardType: TextInputType
                                                       .emailAddress,
-                                                  cursorColor: Colors.black,
+                                                  cursorColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
                                                   validator: _model
                                                       .signupEmailTextControllerValidator
                                                       .asValidator(context),
@@ -442,7 +446,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                                         context)
                                                                     .bodyMediumFamily),
                                                       ),
-                                                  cursorColor: Colors.black,
+                                                  cursorColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
                                                   validator: _model
                                                       .signupPasswordTextControllerValidator
                                                       .asValidator(context),
@@ -580,7 +587,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                                   minLines: 1,
-                                                  cursorColor: Colors.black,
+                                                  cursorColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
                                                   validator: _model
                                                       .signupPasswordConfirmTextControllerValidator
                                                       .asValidator(context),
@@ -589,114 +599,137 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                             ),
                                             Container(
                                               decoration: const BoxDecoration(),
-                                            ),
-                                            Align(
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
-                                                child: FFButtonWidget(
-                                                  onPressed: ((_model.signupEmailTextController
-                                                                      .text ==
-                                                                  '') ||
-                                                          (_model.signupPasswordTextController
-                                                                      .text ==
-                                                                  '') ||
-                                                          (_model.signupPasswordConfirmTextController
-                                                                      .text ==
-                                                                  ''))
-                                                      ? null
-                                                      : () async {
-                                                          GoRouter.of(context)
-                                                              .prepareAuthEvent();
-                                                          if (_model
-                                                                  .signupPasswordTextController
-                                                                  .text !=
-                                                              _model
-                                                                  .signupPasswordConfirmTextController
-                                                                  .text) {
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              const SnackBar(
-                                                                content: Text(
-                                                                  'Passwords don\'t match!',
+                                              child: Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 16.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: ((_model.signupEmailTextController
+                                                                        .text ==
+                                                                    '') ||
+                                                            (_model.signupPasswordTextController
+                                                                        .text ==
+                                                                    '') ||
+                                                            (_model.signupPasswordConfirmTextController
+                                                                        .text ==
+                                                                    ''))
+                                                        ? null
+                                                        : () async {
+                                                            GoRouter.of(context)
+                                                                .prepareAuthEvent();
+                                                            if (_model
+                                                                    .signupPasswordTextController
+                                                                    .text !=
+                                                                _model
+                                                                    .signupPasswordConfirmTextController
+                                                                    .text) {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                const SnackBar(
+                                                                  content: Text(
+                                                                    'Passwords don\'t match!',
+                                                                  ),
                                                                 ),
-                                                              ),
+                                                              );
+                                                              return;
+                                                            }
+
+                                                            final user =
+                                                                await authManager
+                                                                    .createAccountWithEmail(
+                                                              context,
+                                                              _model
+                                                                  .signupEmailTextController
+                                                                  .text,
+                                                              _model
+                                                                  .signupPasswordTextController
+                                                                  .text,
                                                             );
-                                                            return;
-                                                          }
+                                                            if (user == null) {
+                                                              return;
+                                                            }
 
-                                                          final user =
-                                                              await authManager
-                                                                  .createAccountWithEmail(
-                                                            context,
-                                                            _model
-                                                                .signupEmailTextController
-                                                                .text,
-                                                            _model
-                                                                .signupPasswordTextController
-                                                                .text,
-                                                          );
-                                                          if (user == null) {
-                                                            return;
-                                                          }
+                                                            await UsersRecord
+                                                                .collection
+                                                                .doc(user.uid)
+                                                                .update(
+                                                                    createUsersRecordData(
+                                                                  role: widget
+                                                                          .isMentor
+                                                                      ? 'Mentor'
+                                                                      : 'Mentee',
+                                                                ));
 
-                                                          await UsersRecord
-                                                              .collection
-                                                              .doc(user.uid)
-                                                              .update(
-                                                                  createUsersRecordData(
-                                                                role: widget
-                                                                        .isMentor
-                                                                    ? 'Mentor'
-                                                                    : 'Mentee',
-                                                              ));
-
-                                                          context.goNamedAuth(
+                                                            context.goNamedAuth(
                                                               'SignUpSuccess',
-                                                              context.mounted);
-                                                        },
-                                                  text: 'Create Account',
-                                                  options: FFButtonOptions(
-                                                    width: 230.0,
-                                                    height: 48.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 0.0),
-                                                    color: const Color(0xFF1A1764),
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily,
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily),
-                                                        ),
-                                                    elevation: 3.0,
-                                                    borderSide: const BorderSide(
-                                                      color: Colors.transparent,
-                                                      width: 1.0,
+                                                              context.mounted,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                kTransitionInfoKey:
+                                                                    const TransitionInfo(
+                                                                  hasTransition:
+                                                                      true,
+                                                                  transitionType:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          0),
+                                                                ),
+                                                              },
+                                                            );
+                                                          },
+                                                    text: 'Create Account',
+                                                    options: FFButtonOptions(
+                                                      width: 230.0,
+                                                      height: 48.0,
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color: const Color(0xFF1A1764),
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                                color: Colors
+                                                                    .white,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily),
+                                                              ),
+                                                      elevation: 3.0,
+                                                      borderSide: const BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              40.0),
                                                     ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40.0),
                                                   ),
                                                 ),
                                               ),
@@ -714,7 +747,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                               Padding(
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 40.0, 0.0, 12.0),
+                                                        0.0, 60.0, 0.0, 12.0),
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -789,89 +822,96 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       ],
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 300.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 10.0, 0.0, 0.0),
-                                        child: Container(
-                                          width: 90.0,
-                                          height: 40.0,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0xFFFFEBB9),
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(8.0),
-                                              bottomRight: Radius.circular(8.0),
-                                              topLeft: Radius.circular(8.0),
-                                              topRight: Radius.circular(8.0),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 300.0, 0.0, 20.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 10.0, 0.0, 0.0),
+                                          child: Container(
+                                            width: 90.0,
+                                            height: 40.0,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFFFFEBB9),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft:
+                                                    Radius.circular(8.0),
+                                                bottomRight:
+                                                    Radius.circular(8.0),
+                                                topLeft: Radius.circular(8.0),
+                                                topRight: Radius.circular(8.0),
+                                              ),
                                             ),
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  GoRouter.of(context)
-                                                      .prepareAuthEvent();
-                                                  final user = await authManager
-                                                      .signInWithGoogle(
-                                                          context);
-                                                  if (user == null) {
-                                                    return;
-                                                  }
+                                            child: Stack(
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    GoRouter.of(context)
+                                                        .prepareAuthEvent();
+                                                    final user =
+                                                        await authManager
+                                                            .signInWithGoogle(
+                                                                context);
+                                                    if (user == null) {
+                                                      return;
+                                                    }
 
-                                                  await currentUserReference!
-                                                      .update(
-                                                          createUsersRecordData(
-                                                    role: widget.isMentor
-                                                        ? 'Mentor'
-                                                        : 'Mentee',
-                                                  ));
+                                                    await currentUserReference!
+                                                        .update(
+                                                            createUsersRecordData(
+                                                      role: widget.isMentor
+                                                          ? 'Mentor'
+                                                          : 'Mentee',
+                                                    ));
 
-                                                  context.pushNamedAuth(
-                                                      'SignUpSuccess',
-                                                      context.mounted);
-                                                },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: SvgPicture.asset(
-                                                    'assets/images/Label.svg',
-                                                    width: 90.0,
-                                                    height: 25.0,
-                                                    fit: BoxFit.cover,
+                                                    context.pushNamedAuth(
+                                                        'SignUpSuccess',
+                                                        context.mounted);
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/Label.svg',
+                                                      width: 90.0,
+                                                      height: 25.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

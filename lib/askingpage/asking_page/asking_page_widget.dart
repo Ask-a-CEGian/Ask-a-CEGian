@@ -194,10 +194,8 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                                           kTransitionInfoKey: const TransitionInfo(
                                             hasTransition: true,
                                             transitionType:
-                                                PageTransitionType.scale,
-                                            alignment: Alignment.bottomCenter,
-                                            duration:
-                                                Duration(milliseconds: 300),
+                                                PageTransitionType.fade,
+                                            duration: Duration(milliseconds: 0),
                                           ),
                                         },
                                       );
@@ -270,9 +268,8 @@ class _AskingPageWidgetState extends State<AskingPageWidget>
                                         kTransitionInfoKey: const TransitionInfo(
                                           hasTransition: true,
                                           transitionType:
-                                              PageTransitionType.scale,
-                                          alignment: Alignment.bottomCenter,
-                                          duration: Duration(milliseconds: 300),
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
                                         ),
                                       },
                                     );

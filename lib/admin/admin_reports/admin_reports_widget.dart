@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_reports_model.dart';
@@ -54,7 +53,7 @@ class _AdminReportsWidgetState extends State<AdminReportsWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF0A515C),
         drawer: SizedBox(
           width: 362.0,
           child: Drawer(
@@ -66,104 +65,54 @@ class _AdminReportsWidgetState extends State<AdminReportsWidget> {
             ),
           ),
         ),
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF033FA4),
+          automaticallyImplyLeading: false,
+          leading: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 20.0,
+                  borderWidth: 1.0,
+                  buttonSize: 40.0,
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    context.safePop();
+                  },
+                ),
+              ),
+            ],
+          ),
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                'Reports on ${widget.onUserName}',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      color: Colors.white,
+                      fontSize: 22.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                      useGoogleFonts: GoogleFonts.asMap().containsKey('Inter'),
+                    ),
+              ),
+            ],
+          ),
+          actions: const [],
+          centerTitle: false,
+          elevation: 2.0,
+        ),
         body: Stack(
           children: [
-            Align(
-              alignment: const AlignmentDirectional(0.0, -1.0),
-              child: Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 500.0,
-                ),
-                decoration: const BoxDecoration(),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        constraints: const BoxConstraints(
-                          maxWidth: 500.0,
-                        ),
-                        decoration: const BoxDecoration(),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 65.0, 0.0, 0.0),
-                                child: Container(
-                                  width: 200.0,
-                                  height: 50.0,
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 200.0,
-                                  ),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                  ),
-                                  child: AutoSizeText(
-                                    'Reports on ${widget.onUserName}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: Colors.black,
-                                          fontSize: 30.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey('Inter'),
-                                        ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
-              child: Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 500.0,
-                ),
-                decoration: const BoxDecoration(),
-                child: Align(
-                  alignment: const AlignmentDirectional(0.0, -0.83),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                        child: FlutterFlowIconButton(
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          icon: const Icon(
-                            Icons.chevron_left_sharp,
-                            color: Color(0xFFFF0000),
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            context.safePop();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
             Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -327,7 +276,7 @@ class _AdminReportsWidgetState extends State<AdminReportsWidget> {
               ],
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 140.0, 0.0, 80.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 80.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -429,7 +378,7 @@ class _AdminReportsWidgetState extends State<AdminReportsWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -450,8 +399,7 @@ class _AdminReportsWidgetState extends State<AdminReportsWidget> {
                                                         .labelMedium
                                                         .override(
                                                           fontFamily: 'Inter',
-                                                          color:
-                                                              const Color(0xFF959595),
+                                                          color: Colors.white,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts:
                                                               GoogleFonts
@@ -472,8 +420,11 @@ class _AdminReportsWidgetState extends State<AdminReportsWidget> {
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
-                                            child: SvgPicture.asset(
-                                              'assets/images/Group.svg',
+                                            child: Image.network(
+                                              valueOrDefault<String>(
+                                                profile1UsersRecord.photoUrl,
+                                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/ask-a-cegian-6q7f9f/assets/3l034mi77mah/Group_(1).svg',
+                                              ),
                                               width: 53.0,
                                               height: 53.0,
                                               fit: BoxFit.cover,

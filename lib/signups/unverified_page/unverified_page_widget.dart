@@ -1,36 +1,29 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'wait_page_model.dart';
-export 'wait_page_model.dart';
+import 'unverified_page_model.dart';
+export 'unverified_page_model.dart';
 
-class WaitPageWidget extends StatefulWidget {
-  const WaitPageWidget({super.key});
+class UnverifiedPageWidget extends StatefulWidget {
+  const UnverifiedPageWidget({super.key});
 
   @override
-  State<WaitPageWidget> createState() => _WaitPageWidgetState();
+  State<UnverifiedPageWidget> createState() => _UnverifiedPageWidgetState();
 }
 
-class _WaitPageWidgetState extends State<WaitPageWidget> {
-  late WaitPageModel _model;
+class _UnverifiedPageWidgetState extends State<UnverifiedPageWidget> {
+  late UnverifiedPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => WaitPageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (valueOrDefault<bool>(currentUserDocument?.adminVerified, false)) {
-        context.goNamed('MentorHome');
-      }
-    });
+    _model = createModel(context, () => UnverifiedPageModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -52,7 +45,7 @@ class _WaitPageWidgetState extends State<WaitPageWidget> {
         onWillPop: () async => false,
         child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: const Color(0xFFE6E6E6),
+          backgroundColor: const Color(0xFF0A515C),
           body: SafeArea(
             top: true,
             child: Column(
@@ -70,7 +63,7 @@ class _WaitPageWidgetState extends State<WaitPageWidget> {
                         maxWidth: 770.0,
                       ),
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: const Color(0xFFE6E6E6),
                         boxShadow: const [
                           BoxShadow(
                             blurRadius: 3.0,
@@ -255,7 +248,7 @@ class _WaitPageWidgetState extends State<WaitPageWidget> {
                                         ),
                                   ),
                                   Text(
-                                    'If you have any questions or need further assistance, please contact our support team at [support email/contact number]',
+                                    'If you have any questions or need further assistance, please contact our support team at admin_askacegian@cegaana.org',
                                     textAlign: TextAlign.justify,
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -285,10 +278,9 @@ class _WaitPageWidgetState extends State<WaitPageWidget> {
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              if (valueOrDefault<bool>(
-                                                  currentUserDocument
-                                                      ?.adminVerified,
-                                                  false)) {
+                                              if (currentUserDocument
+                                                      ?.userState ==
+                                                  UserState.VERIFIED) {
                                                 if (valueOrDefault(
                                                         currentUserDocument
                                                             ?.role,

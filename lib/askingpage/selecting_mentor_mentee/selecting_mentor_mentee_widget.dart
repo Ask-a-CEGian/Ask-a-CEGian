@@ -55,21 +55,11 @@ class _SelectingMentorMenteeWidgetState
               constraints: const BoxConstraints(
                 maxWidth: 500.0,
               ),
-              decoration: const BoxDecoration(),
+              decoration: const BoxDecoration(
+                color: Color(0xFF082E64),
+              ),
               child: Stack(
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 430.0,
-                        height: 932.0,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF0F0A35),
-                        ),
-                      ),
-                    ],
-                  ),
                   Stack(
                     children: [
                       Align(
@@ -258,10 +248,6 @@ class _SelectingMentorMenteeWidgetState
                 ],
               ),
             ),
-          ),
-          const Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [],
           ),
         ],
       ),

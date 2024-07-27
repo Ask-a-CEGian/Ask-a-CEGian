@@ -627,6 +627,18 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                             .bool,
                                                                       ),
                                                                     }.withoutNulls,
+                                                                    extra: <String,
+                                                                        dynamic>{
+                                                                      kTransitionInfoKey:
+                                                                          const TransitionInfo(
+                                                                        hasTransition:
+                                                                            true,
+                                                                        transitionType:
+                                                                            PageTransitionType.fade,
+                                                                        duration:
+                                                                            Duration(milliseconds: 0),
+                                                                      ),
+                                                                    },
                                                                   );
                                                                 },
                                                           text: 'Log in',

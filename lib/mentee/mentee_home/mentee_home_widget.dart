@@ -211,7 +211,7 @@ class _MenteeHomeWidgetState extends State<MenteeHomeWidget> {
                                   width: double.infinity,
                                   height: 200.0,
                                   decoration: const BoxDecoration(
-                                    color: Colors.transparent,
+                                    color: Colors.white,
                                   ),
                                   child: StreamBuilder<List<MentorshipsRecord>>(
                                     stream: queryMentorshipsRecord(

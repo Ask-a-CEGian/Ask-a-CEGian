@@ -63,7 +63,7 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
             child: Stack(
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Stack(
                     children: [
                       Padding(
@@ -91,15 +91,16 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
-                            child: AuthUserStreamWidget(
-                              builder: (context) => ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  currentUserPhoto,
-                                  width: 328.0,
-                                  height: 193.0,
-                                  fit: BoxFit.cover,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                valueOrDefault<String>(
+                                  widget.mentorDoc?.photoUrl,
+                                  'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/ask-a-cegian-6q7f9f/assets/3l034mi77mah/Group_(1).svg',
                                 ),
+                                width: 328.0,
+                                height: 193.0,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
@@ -115,19 +116,17 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                               maxWidth: 500.0,
                             ),
                             decoration: const BoxDecoration(),
-                            child: AuthUserStreamWidget(
-                              builder: (context) => Text(
-                                currentUserDisplayName,
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineSmall
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: Colors.black,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey('Inter'),
-                                    ),
-                              ),
+                            child: Text(
+                              widget.mentorDoc!.displayName,
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineSmall
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: Colors.black,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('Inter'),
+                                  ),
                             ),
                           ),
                         ),
@@ -140,7 +139,7 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                           child: Container(
                             decoration: const BoxDecoration(),
                             child: Text(
-                              currentUserEmail,
+                              widget.mentorDoc!.email,
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
@@ -154,76 +153,113 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxWidth: 500.0,
-                    ),
-                    decoration: const BoxDecoration(),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 55.0, 8.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(),
-                            child: Stack(
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    context.safePop();
-                                  },
-                                  text: '     Back',
-                                  options: FFButtonOptions(
-                                    height: 40.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Colors.white,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: const Color(0xFF0A84FF),
-                                          fontSize: 17.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey('Inter'),
-                                        ),
-                                    elevation: 0.0,
-                                    borderSide: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0.0,
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, -0.9),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                context.pop();
+                              },
+                              text: 'Back',
+                              icon: const Icon(
+                                Icons.arrow_back_ios,
+                                size: 15.0,
+                              ),
+                              options: FFButtonOptions(
+                                height: 40.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: Colors.white,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: const Color(0xFFFF0000),
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
+                                elevation: 0.0,
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 8.0, 0.0, 0.0),
-                                  child: Icon(
-                                    Icons.chevron_left_rounded,
-                                    color: Color(0xFF0A84FF),
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ],
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 10.0, 10.0, 10.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.white,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: ReportSheetWidget(
+                                            byUser: currentUserReference!,
+                                            onUser:
+                                                widget.mentorDoc!.reference,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                text: 'Report\n',
+                                options: FFButtonOptions(
+                                  height: 40.0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 0.0, 24.0, 0.0),
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: const Color(0xFFB61212),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleSmallFamily,
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily),
+                                      ),
+                                  elevation: 3.0,
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 Padding(
@@ -296,30 +332,26 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 10.0, 0.0),
-                                            child: AuthUserStreamWidget(
-                                              builder: (context) => Text(
-                                                valueOrDefault(
-                                                    currentUserDocument?.branch,
-                                                    ''),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyLargeFamily,
-                                                          color:
-                                                              const Color(0xFFE6E6E6),
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily),
-                                                        ),
-                                              ),
+                                            child: Text(
+                                              widget.mentorDoc!.branch,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLargeFamily,
+                                                        color:
+                                                            const Color(0xFFE6E6E6),
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily),
+                                                      ),
                                             ),
                                           ),
                                         ],
@@ -380,32 +412,27 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 10.0, 0.0),
-                                            child: AuthUserStreamWidget(
-                                              builder: (context) => Text(
-                                                valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.gradYear,
-                                                        0)
-                                                    .toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyLargeFamily,
-                                                          color:
-                                                              const Color(0xFFE6E6E6),
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily),
-                                                        ),
-                                              ),
+                                            child: Text(
+                                              widget.mentorDoc!.gradYear
+                                                  .toString(),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLargeFamily,
+                                                        color:
+                                                            const Color(0xFFE6E6E6),
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily),
+                                                      ),
                                             ),
                                           ),
                                         ],
@@ -473,36 +500,122 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         30.0, 10.0, 15.0, 0.0),
-                                                child: AuthUserStreamWidget(
-                                                  builder: (context) => Text(
-                                                    valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.linkedinUrl,
-                                                        ''),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color:
-                                                              const Color(0xFFE6E6E6),
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                  ),
+                                                child: Text(
+                                                  widget
+                                                      .mentorDoc!.linkedinUrl,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            const Color(0xFFE6E6E6),
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 16.0, 24.0, 0.0),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 2.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF4D899C),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        border: Border.all(
+                                          color: const Color(0xFF443F9E),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Availability',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLargeFamily,
+                                                          color: Colors.black,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily),
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 0.0, 10.0, 0.0),
+                                            child: Text(
+                                              valueOrDefault<String>(
+                                                widget.mentorDoc!.mentorAvail
+                                                    ? 'Yes'
+                                                    : 'No',
+                                                'None',
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLargeFamily,
+                                                        color:
+                                                            const Color(0xFFE6E6E6),
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily),
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -607,112 +720,103 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                                                                       0.0,
                                                                       0.0),
                                                           child:
-                                                              AuthUserStreamWidget(
-                                                            builder: (context) =>
-                                                                FlutterFlowChoiceChips(
-                                                              options: (currentUserDocument
-                                                                          ?.areasInterest
-                                                                          .toList() ??
-                                                                      [])
-                                                                  .map((label) =>
-                                                                      ChipData(
-                                                                          label))
-                                                                  .toList(),
-                                                              onChanged: (val) =>
-                                                                  setState(() =>
-                                                                      _model.choiceChipsValue =
-                                                                          val?.firstOrNull),
-                                                              selectedChipStyle:
-                                                                  ChipStyle(
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .white,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
-                                                                iconColor:
-                                                                    Colors
-                                                                        .white,
-                                                                iconSize: 18.0,
-                                                                labelPadding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            20.0,
-                                                                            6.0,
-                                                                            20.0,
-                                                                            6.0),
-                                                                elevation: 4.0,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            16.0),
-                                                              ),
-                                                              unselectedChipStyle:
-                                                                  ChipStyle(
-                                                                backgroundColor:
-                                                                    const Color(
-                                                                        0xFFE6E6E6),
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
-                                                                iconColor: const Color(
-                                                                    0xFFE6E6E6),
-                                                                iconSize: 18.0,
-                                                                labelPadding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            20.0,
-                                                                            6.0,
-                                                                            20.0,
-                                                                            6.0),
-                                                                elevation: 0.0,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            16.0),
-                                                              ),
-                                                              chipSpacing: 12.0,
-                                                              rowSpacing: 12.0,
-                                                              multiselect:
-                                                                  false,
-                                                              alignment:
-                                                                  WrapAlignment
-                                                                      .spaceEvenly,
-                                                              controller: _model
-                                                                      .choiceChipsValueController ??=
-                                                                  FormFieldController<
-                                                                      List<
-                                                                          String>>(
-                                                                [],
-                                                              ),
-                                                              wrapped: true,
+                                                              FlutterFlowChoiceChips(
+                                                            options: widget
+                                                                .mentorDoc!
+                                                                .areasInterest
+                                                                .map((label) =>
+                                                                    ChipData(
+                                                                        label))
+                                                                .toList(),
+                                                            onChanged: (val) =>
+                                                                setState(() => _model
+                                                                        .choiceChipsValue =
+                                                                    val?.firstOrNull),
+                                                            selectedChipStyle:
+                                                                ChipStyle(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                      ),
+                                                              iconColor:
+                                                                  Colors.white,
+                                                              iconSize: 18.0,
+                                                              labelPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          6.0,
+                                                                          5.0,
+                                                                          6.0),
+                                                              elevation: 4.0,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0),
                                                             ),
+                                                            unselectedChipStyle:
+                                                                ChipStyle(
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xFFE6E6E6),
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: Colors
+                                                                            .black,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                      ),
+                                                              iconColor: const Color(
+                                                                  0xFFE6E6E6),
+                                                              iconSize: 18.0,
+                                                              labelPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          6.0,
+                                                                          5.0,
+                                                                          6.0),
+                                                              elevation: 0.0,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0),
+                                                            ),
+                                                            chipSpacing: 12.0,
+                                                            rowSpacing: 12.0,
+                                                            multiselect: false,
+                                                            alignment:
+                                                                WrapAlignment
+                                                                    .spaceEvenly,
+                                                            controller: _model
+                                                                    .choiceChipsValueController ??=
+                                                                FormFieldController<
+                                                                    List<
+                                                                        String>>(
+                                                              [],
+                                                            ),
+                                                            wrapped: true,
                                                           ),
                                                         ),
                                                       ],
@@ -729,7 +833,7 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 30.0, 24.0, 0.0),
+                                      24.0, 0.0, 24.0, 0.0),
                                   child: Material(
                                     color: Colors.transparent,
                                     elevation: 2.0,
@@ -787,102 +891,33 @@ class _MentorProfileViewWidgetState extends State<MentorProfileViewWidget> {
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         30.0, 10.0, 0.0, 0.0),
-                                                child: AuthUserStreamWidget(
-                                                  builder: (context) => Text(
-                                                    valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.personalStatement,
-                                                        ''),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color:
-                                                              const Color(0xFFE6E6E6),
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                  ),
+                                                child: Text(
+                                                  widget.mentorDoc!
+                                                      .personalStatement,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            const Color(0xFFE6E6E6),
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 40.0, 0.0, 20.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.white,
-                                        enableDrag: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: ReportSheetWidget(
-                                                byUser: currentUserReference!,
-                                                onUser: widget
-                                                    .mentorDoc!.reference,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(() {}));
-                                    },
-                                    text: 'Log Out',
-                                    options: FFButtonOptions(
-                                      width: 190.0,
-                                      height: 50.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: const Color(0xFFB21B00),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily,
-                                            color: Colors.white,
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily),
-                                          ),
-                                      elevation: 3.0,
-                                      borderSide: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
                                 ),

@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -331,11 +332,7 @@ class _LoginSuccessWidgetState extends State<LoginSuccessWidget>
                                                         'Mentor') {
                                                       context.pushNamed(
                                                           'MentorForm');
-                                                    } else if (valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.role,
-                                                            '') ==
-                                                        'Mentee') {
+                                                    } else {
                                                       context.pushNamed(
                                                           'MenteeForm');
                                                     }
@@ -344,35 +341,31 @@ class _LoginSuccessWidgetState extends State<LoginSuccessWidget>
                                                             currentUserDocument
                                                                 ?.role,
                                                             '') ==
-                                                        'Mentor') {
-                                                      if (valueOrDefault<bool>(
-                                                          currentUserDocument
-                                                              ?.adminVerified,
-                                                          false)) {
-                                                        context.pushNamed(
-                                                            'MentorHome');
-                                                      } else {
-                                                        context.pushNamed(
-                                                            'WaitPage');
-                                                      }
-                                                    } else if (valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.role,
-                                                            '') ==
-                                                        'Mentee') {
-                                                      if (valueOrDefault<bool>(
-                                                          currentUserDocument
-                                                              ?.adminVerified,
-                                                          false)) {
-                                                        context.goNamed(
-                                                            'MenteeHome');
-                                                      } else {
-                                                        context.pushNamed(
-                                                            'WaitPage');
-                                                      }
-                                                    } else {
+                                                        'Admin') {
                                                       context
                                                           .goNamed('AdminHome');
+                                                    } else if (currentUserDocument
+                                                            ?.userState ==
+                                                        UserState.UNVERIFIED) {
+                                                      context.pushNamed(
+                                                          'UnverifiedPage');
+                                                    } else if (currentUserDocument
+                                                            ?.userState ==
+                                                        UserState.SUSPENDED) {
+                                                      context.pushNamed(
+                                                          'SuspendPage');
+                                                    } else {
+                                                      if (valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.role,
+                                                              '') ==
+                                                          'Mentor') {
+                                                        context.goNamed(
+                                                            'MentorHome');
+                                                      } else {
+                                                        context.goNamed(
+                                                            'MenteeHome');
+                                                      }
                                                     }
                                                   }
                                                 },

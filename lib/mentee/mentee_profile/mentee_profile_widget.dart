@@ -234,7 +234,7 @@ class _MenteeProfileWidgetState extends State<MenteeProfileWidget> {
                               children: [
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    context.safePop();
+                                    context.goNamed('MenteeHome');
                                   },
                                   text: '     Back',
                                   options: FFButtonOptions(
@@ -284,7 +284,7 @@ class _MenteeProfileWidgetState extends State<MenteeProfileWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     color: const Color(0xFF0B1454),
-                                    fontSize: 24.0,
+                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     useGoogleFonts: GoogleFonts.asMap()
